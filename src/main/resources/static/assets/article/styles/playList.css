@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
 
+#playListForm {
+    flex: 1;
+}
 
 #playListForm > .header {
     background-color: #313491;
@@ -119,7 +122,7 @@
 }
 
 
-#playListForm > .footer {
+ .footer {
     background-color: #313491;
     color:#ffffff;
 

@@ -9,7 +9,7 @@ a[href] {
     text-decoration: none;
 }
 
-body {
+body, html {
     min-height: 100%;
     background-color: #ffffff;
     color: #121418;
@@ -18,6 +18,9 @@ body {
     font-size: 0.9375rem;
     font-weight: 400;
     margin: initial;
+
+    display: flex;
+    flex-direction: column;
 }
 
 button, input, select, textarea {
