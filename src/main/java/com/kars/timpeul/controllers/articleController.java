@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/article")
 public class articleController {
 
-    // 테스트 주석입니다.
-
     @RequestMapping(value = "/playList", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public String getPlayList() {return "article/playList";}
+    public String getPlayList() {return "article/playlist";}
 
     @RequestMapping(value = "/write", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public String getWrite() {return "article/write";}
