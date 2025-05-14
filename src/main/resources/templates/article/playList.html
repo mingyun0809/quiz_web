@@ -14,7 +14,7 @@
 </head> <!--  http://localhost:8080/article/playList -->
 <body>
 
-<!-- 타임리프 필요할듯 -->
+<!-- 타임리프 넣기 -->
 <form id="playListForm">
     <header class="header">
         <a class="caption" href="/article/playList">Q and A</a>
@@ -26,7 +26,7 @@
 
 
     <div class="container">
-        <h1 class="title">퀴즈 목록</h1>
+        <h1 class="title">퀴즈 리스트</h1>
         <div class="play-list">
             <div class="play-item"> <!-- th:href="@{/article/ (index = ${article.getIndex()})} -->
                 <img class="img" alt="" src="/assets/article/images/no-img.png">
@@ -69,11 +69,11 @@
     </div>
 
 
-    <footer class="footer">
-        <span class="and">참고 사이트 : 마추기 아오이</span>
-    </footer>
-
-
 </form>
+
+<footer class="footer">
+    <span class="and">참고 사이트 : 마추기 아이오</span>
+</footer>
+
 </body>
 </html>

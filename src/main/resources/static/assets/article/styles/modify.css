@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+body {
+
+}
+
+#modifyForm {
+
+    color: #ffffff;
+    background-color: #313491;
+    width: 50rem;
+    margin: 0 auto;
+    padding: 4rem;
+
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    justify-content: stretch;
+
+    flex: 1;
+}
+
+
+#modifyForm > .header > .title {
+    font-size: 2rem;
+    font-family: 휴먼둥근헤드라인;
+}
+
+#modifyForm > .header > .line {
+    width: 20rem;
+    height: 0.125rem;
+    background-color: #ffffff;
+    content: '';
+    display: inline-block;
+    margin: 0 0.5rem;
+
+}
+
+#modifyForm > .table > tbody {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: flex-start;
+}
+
+#modifyForm > .table > tbody > tr {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: flex-start;
+}
+
+#modifyForm > .table > tbody > tr > td > .row > .info {
+    width: 36rem;
+}
+
+#modifyForm > .table > tbody > tr > td > .row > textarea {
+    height: 3rem;
+}
+
+input, textarea {
+    border: 0.0625rem solid #ffffff;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    color: #121418;
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    width: 12.5rem;
+    padding: 0.25rem 0.5rem;
+}
+
+#modifyForm > .table > tbody > .QnA {
+    align-items: center;
+    width: 100%;
+
+    padding: 0 0.5rem;
+}
+
+#modifyForm > .table > tbody > .QnA:last-child {
+    margin-bottom: 1rem;
+}
+
+#modifyForm > .table > tbody > .QnA > .stretch {
+    flex-grow: 1;
+}
+
+#modifyForm > .table > tbody > .QnA > td > .buttons {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+#modifyForm > .table > tbody > .QnA > td > .buttons > .button > .icon {
+    width: 2rem;
+}
+
+
+#modifyForm > .button-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+#modifyForm > .button-container > .button {
+    padding: 0.5rem;
+    border: 0.0625rem solid #caccce;
+    border-radius: 1rem;
+}
+
