@@ -14,7 +14,110 @@
 </head><!--  http://localhost:8080/article/modify -->
 <body>
 
-수정
+<form novalidate id="modifyForm">
+<header class="header">
+    <h1 class="title">퀴즈 수정</h1>
+    <span class="line"></span>
+</header>
+
+<table class="table">
+    <tbody>
+    <tr>
+        <th scope="row">
+            <label class="caption">퀴즈 제목</label>
+        </th>
+        <td>
+            <div class="row">
+                <input autofocus required class="info" id="" maxlength="100" minlength="1" name="title"
+                       type="text">
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <th scope="row">
+            <label class="caption">퀴즈 설명</label>
+        </th>
+        <td>
+            <div class="row">
+                    <textarea required class="info" id="writeInfo" maxlength="500" minlength="1" name="info"
+                              placeholder="퀴즈 설명을 입력해 주세요"></textarea>
+            </div>
+        </td>
+    </tr>
+    <tr class="QnA jump">
+        <th scope="row" class="col">
+            <label class="caption">질문</label>
+        </th>
+        <td>
+            <div class="row">
+                <input required class="Q" id="" maxlength="500" minlength="1" name="Q" type="text"
+                       placeholder="질문을 입력해 주세요">
+            </div>
+        </td>
+        <th scope="row" class="col">
+            <label class="caption">정답</label>
+        </th>
+        <td>
+            <div class="row">
+                <input required class="A" id="" maxlength="500" minlength="1" name="Q" type="text"
+                       placeholder="정답을 입력해 주세요">
+            </div>
+        </td>
+        <td class="stretch"></td>
+        <td>
+            <div class="row buttons">
+                <button class="button" name="plus" type="submit">
+                    <img alt="" class="icon" src="/assets/article/images/plus.png">
+                </button>
+                <button class="button" name="minus" type="submit">
+                    <img alt="" class="icon" src="/assets/article/images/minus.png">
+                </button>
+            </div>
+        </td>
+    </tr>
+    <tr class="QnA">
+        <th scope="row" class="col">
+            <label class="caption">질문</label>
+        </th>
+        <td>
+            <div class="row">
+                <input required class="Q" id="" maxlength="500" minlength="1" name="Q" type="text"
+                       placeholder="질문을 입력해 주세요">
+            </div>
+        </td>
+        <th scope="row" class="col">
+            <label class="caption">정답</label>
+        </th>
+        <td>
+            <div class="row">
+                <input required class="A" id="" maxlength="500" minlength="1" name="Q" type="text"
+                       placeholder="정답을 입력해 주세요">
+            </div>
+        </td>
+        <td class="stretch"></td>
+        <td>
+            <div class="row buttons">
+                <button class="button" name="plus" type="submit">
+                    <img alt="" class="icon" src="/assets/article/images/plus.png">
+                </button>
+                <button class="button" name="minus" type="submit">
+                    <img alt="" class="icon" src="/assets/article/images/minus.png">
+                </button>
+            </div>
+        </td>
+    </tr> <!--얘 반복 -->
+    </tbody>
+</table>
+
+<div class="button-container">
+    <a class="button" href="/article/playList">취소</a>
+    <!-- th:href="@{/border/list (id = ${border.getId()})}" // 주소식: @{주소 (이름 = 값, 이름2 = 값2)} -->
+    <button class="button" name="make" type="submit">작성하기</button>
+</div>
+
+
+</form>
 
 </body>
 </html>
