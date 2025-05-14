@@ -29,7 +29,7 @@
         <td>
             <div class="row">
                 <input autofocus required class="info" id="" maxlength="100" minlength="1" name="title"
-                       type="text">
+                       type="text" placeholder="본래 제목">
             </div>
         </td>
     </tr>
@@ -41,18 +41,18 @@
         <td>
             <div class="row">
                     <textarea required class="info" id="writeInfo" maxlength="500" minlength="1" name="info"
-                              placeholder="퀴즈 설명을 입력해 주세요"></textarea>
+                              placeholder="본래 설명"></textarea>
             </div>
         </td>
     </tr>
-    <tr class="QnA jump">
+    <tr class="QnA">
         <th scope="row" class="col">
             <label class="caption">질문</label>
         </th>
         <td>
             <div class="row">
                 <input required class="Q" id="" maxlength="500" minlength="1" name="Q" type="text"
-                       placeholder="질문을 입력해 주세요">
+                       placeholder="본래 질문">
             </div>
         </td>
         <th scope="row" class="col">
@@ -61,7 +61,7 @@
         <td>
             <div class="row">
                 <input required class="A" id="" maxlength="500" minlength="1" name="Q" type="text"
-                       placeholder="정답을 입력해 주세요">
+                       placeholder="본래 정답">
             </div>
         </td>
         <td class="stretch"></td>
@@ -83,7 +83,7 @@
         <td>
             <div class="row">
                 <input required class="Q" id="" maxlength="500" minlength="1" name="Q" type="text"
-                       placeholder="질문을 입력해 주세요">
+                       placeholder="본래 질문">
             </div>
         </td>
         <th scope="row" class="col">
@@ -92,7 +92,7 @@
         <td>
             <div class="row">
                 <input required class="A" id="" maxlength="500" minlength="1" name="Q" type="text"
-                       placeholder="정답을 입력해 주세요">
+                       placeholder="본래 정답">
             </div>
         </td>
         <td class="stretch"></td>
@@ -106,14 +106,14 @@
                 </button>
             </div>
         </td>
-    </tr> <!--얘 반복 -->
+    </tr>
     </tbody>
 </table>
 
 <div class="button-container">
-    <a class="button" href="/article/playList">취소</a>
+    <a class="button" href="/article/made">취소</a>
     <!-- th:href="@{/border/list (id = ${border.getId()})}" // 주소식: @{주소 (이름 = 값, 이름2 = 값2)} -->
-    <button class="button" name="make" type="submit">작성하기</button>
+    <button class="button" name="make" type="submit"> 수정하기</button>
 </div>
 
 
