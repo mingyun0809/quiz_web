@@ -1,0 +1,133 @@
+@charset "UTF-8";
+
+
+
+#playListForm > .header {
+    background-color: #313491;
+    color:#ffffff;
+    padding: 2rem 1.5rem;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+#playListForm > .header > .stretch {
+    flex-grow: 1;
+}
+
+#playListForm > .header > .caption {
+    font-family: Symbol;
+    font-size: 2rem;
+}
+
+#playListForm > .header > .button {
+    background-color: #0b0d45;
+    border: 0.125rem solid #0b0d45;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+#playListForm > .header > .button:hover {
+    background: #26296c;
+}
+#playListForm > .header > button:active {
+    background-color: #5d5f85;
+    border: 0.125rem solid #26296c;
+}
+
+#playListForm > .header > .logout {
+    padding: 0.5rem;
+}
+#playListForm > .header > .logout:hover {
+    text-decoration: underline;
+}
+
+
+
+#playListForm > .container {
+    min-width: 40rem;
+    margin: 3rem;
+
+    align-items: center;
+    display: block;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#playListForm > .container > .title {
+    font-family: 휴먼둥근헤드라인;
+    font-size: 2.25rem;
+
+    margin-bottom: 0.5rem;
+}
+
+#playListForm > .container > .play-list {
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    flex-direction: column;
+    justify-content: center;
+}
+
+#playListForm > .container > .play-list > .play-item {
+    width: 12.5rem;
+    height: 15rem;
+    margin: 1rem;
+    padding: 0.5rem;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: flex-start;
+
+    border: 0.125rem solid #313491;
+    border-radius: 1rem;
+    background-color: #ffffff;
+}
+
+@media screen and (max-width: 100rem) {
+    #playListForm > .container > .play-list {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+@media screen and (max-width: 80rem) {
+    #playListForm > .container > .play-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media screen and (max-width: 60rem) {
+    #playListForm > .container > .play-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+#playListForm > .container > .play-list > .play-item > .img {
+    max-width: 10rem;
+    max-height: 7.5rem;
+
+}
+#playListForm > .container > .play-list > .play-item > .caption {
+    font-weight: 1000;
+
+
+}
+#playListForm > .container > .play-list > .play-item > .info {
+    font-size: 0.8rem;
+}
+
+
+#playListForm > .footer {
+    background-color: #313491;
+    color:#ffffff;
+
+    padding: 2rem 1.5rem;
+}
+
+
+
+
+
+

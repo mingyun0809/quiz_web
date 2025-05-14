@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+
+#madeForm > .header {
+    background-color: #313491;
+    color:#ffffff;
+    padding: 2rem 1.5rem;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+#madeForm > .header > .stretch {
+    flex-grow: 1;
+}
+
+#madeForm > .header > .caption {
+    font-family: Symbol;
+    font-size: 2rem;
+}
+
+#madeForm > .header > .button {
+    background-color: #0b0d45;
+    border: 0.125rem solid #0b0d45;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+#madeForm > .header > .button.in {
+    background-color: #bebfe8;
+    border: 0.125rem solid #bebfe8;
+    color: #0b0d45;
+}
+#madeForm > .header > .button.in:hover {
+    background-color: #6e6fa1;
+    border: 0.125rem solid #6e6fa1;
+    color: #0b0d45;
+
+}
+#madeForm > .header > .button:hover {
+    background: #26296c;
+}
+#madeForm > .header > button:active {
+    background-color: #5d5f85;
+    border: 0.125rem solid #26296c;
+}
+
+#madeForm > .header > .logout {
+    padding: 0.5rem;
+}
+#madeForm > .header > .logout:hover {
+    text-decoration: underline;
+}
+
+
+
+#madeForm > .container {
+    min-width: 40rem;
+    margin: 3rem;
+
+    align-items: center;
+    display: block;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#madeForm > .container > .title {
+    font-family: 휴먼둥근헤드라인;
+    font-size: 2.25rem;
+
+    margin-bottom: 0.5rem;
+}
+
+#madeForm > .container > .play-list {
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    flex-direction: column;
+    justify-content: center;
+}
+
+#madeForm > .container > .play-list > .play-item {
+    width: 12.5rem;
+    height: 15rem;
+    margin: 1rem;
+    padding: 0.5rem;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: flex-start;
+
+    border: 0.125rem solid #313491;
+    border-radius: 1rem;
+    background-color: #ffffff;
+}
+
+@media screen and (max-width: 100rem) {
+    #madeForm > .container > .play-list {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+@media screen and (max-width: 80rem) {
+    #madeForm > .container > .play-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media screen and (max-width: 60rem) {
+    #madeForm > .container > .play-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+#madeForm > .container > .play-list > .play-item > .img {
+    max-width: 10rem;
+    max-height: 7.5rem;
+
+}
+#madeForm > .container > .play-list > .play-item > .caption {
+    font-weight: 1000;
+
+
+}
+#madeForm > .container > .play-list > .play-item > .info {
+    font-size: 0.8rem;
+}
+
+
+#madeForm > .footer {
+    background-color: #313491;
+    color:#ffffff;
+
+    padding: 2rem 1.5rem;
+}
+
+
+
+
+
+
