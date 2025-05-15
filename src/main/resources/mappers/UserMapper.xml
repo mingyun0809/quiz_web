@@ -2,7 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.kars.timpeul.mappers.UserMapper">
     <insert id="insertUser">
-
+        SELECT `id_token` AS idToken,
+               `is_admin` AS isAdmin,
+               `id_deleted` AS isDeleted,
+               `is_suspended` AS isSuspended,
+               `created_at` AS  createdAt
+        FROM `5.19_test`.`users`
+        WHERE `id_token` = #{idToken}
     </insert>
     <update id="updateUser">
 
