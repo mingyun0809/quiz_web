@@ -11,20 +11,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/article")
 public class QuizController {
     @RequestMapping(value = "/quiz", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public String getQuizPage(){
+    public String getQuizPage() {
         return "article/quiz";
     }
 
     @RequestMapping(value = "/quizContent", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public String getQuizContentPage(){
+    public String getQuizContentPage() {
         return "article/quizContent";
     }
 
     @RequestMapping(value = "/quizResult", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public String getQuizResultPage(){
+    public String getQuizResultPage() {
         return "article/quizResult";
     }
 
 
+    // http://localhost:8080/article/quiz
+    // http://localhost:8080/article/quizContent
+    // http://localhost:8080/article/quizResult
 
 }

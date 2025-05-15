@@ -91,6 +91,13 @@
     background-color: #ffffff;
 }
 
+#playListForm > .container > .play-list > .play-item:hover {
+    background-color: #bdbee7;
+}
+#playListForm > .container > .play-list > .play-item:active {
+    background-color: #6e6fa1;
+}
+
 @media screen and (max-width: 100rem) {
     #playListForm > .container > .play-list {
         grid-template-columns: repeat(5, 1fr);
