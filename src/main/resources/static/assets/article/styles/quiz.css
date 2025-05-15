@@ -12,6 +12,13 @@ body{
 
 }
 
+#quizImage{
+    height: 300px;
+    width: 500px;
+    background-color: white;
+    margin-bottom: 100px;
+}
+
 #logoImg{
     margin-left: 220px;
     border-radius: 10%;
