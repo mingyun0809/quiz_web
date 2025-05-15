@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kars.timpeul.mappers.UserMapper">
+    <insert id="insertUser" parameterType="com.kars.timpeul.entities.UserEntity">
+        INSERT INTO `5.19_test`.`users`
+        (`id_token`, `is_admin`, `is_deleted`, `is_suspended`, `created_at`) VALUES (
+          #{idToken}, #{isAdmin}, #{isDeleted}, #{isSuspended}, NOW()
+        )
+    </insert>
+    <update id="updateUser" parameterType="com.kars.timpeul.entities.UserEntity">
+        UPDATE `5.19_test`.`users`
+        SET `is_admin` = #{isAdmin},
+            `is_deleted` = #{isDeleted},
+            `is_suspended` = #{isSuspended}
+        WHERE `id_token` = ${idToken}
+    </update>
+    <select id="selectUserByIdToken" resultType="com.kars.timpeul.entities.UserEntity">
+        SELECT `id_token` AS idToken,
+               `is_admin` AS isAdmin,
+               `is_deleted` AS isDeleted,
+               `is_suspended` AS isSuspended,
+               `created_at` AS  createdAt
+        FROM `5.19_test`.`users`
+        WHERE `id_token` = #{idToken}
+    </select>
+</mapper>
