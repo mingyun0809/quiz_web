@@ -24,11 +24,11 @@
         <tbody>
         <tr>
             <th scope="row">
-                <label class="caption">퀴즈 제목</label>
+                <label class="caption" for="writeTitle">퀴즈 제목</label>
             </th>
             <td>
                 <div class="row">
-                    <input autofocus required class="info" id="" maxlength="100" minlength="1" name="title"
+                    <input autofocus required class="info" id="writeTitle" maxlength="100" minlength="1" name="Title"
                            type="text" placeholder="퀴즈 제목을 입력해 주세요">
                 </div>
             </td>
@@ -36,7 +36,7 @@
 
         <tr>
             <th scope="row">
-                <label class="caption">퀴즈 설명</label>
+                <label class="caption" for="writeInfo">퀴즈 설명</label>
             </th>
             <td>
                 <div class="row">
@@ -47,19 +47,19 @@
         </tr>
         <tr class="QnA ">
             <th scope="row" class="col">
-                <label class="caption">질문</label>
+                <label class="caption" for="writeQuestion">질문</label>
             </th>
             <td>
                 <div class="row img-box">
-                    <img alt="이미지 넣기" class="question" src=""> <!-- th:src -->
+                    <img alt="이미지 넣기" class="question" id="writeQuestion" src="" name="question"> <!-- th:src -->
                 </div>
             </td>
             <th scope="row" class="col">
-                <label class="caption">정답</label>
+                <label class="caption" for="writeAnswer">정답</label>
             </th>
             <td>
                 <div class="row">
-                    <input required class="A" id="" maxlength="250" minlength="1" name="Q" type="text"
+                    <input required class="A" id="writeAnswer" maxlength="250" minlength="1" name="answer" type="text"
                            placeholder="정답을 입력해 주세요">
                 </div>
             </td>
