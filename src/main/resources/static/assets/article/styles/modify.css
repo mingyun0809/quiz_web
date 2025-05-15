@@ -34,7 +34,31 @@ body {
     content: '';
     display: inline-block;
     margin: 0 0.5rem;
+}
 
+#modifyForm > .header > .stretch {
+    flex-grow: 1;
+}
+
+#modifyForm > .header > .delete {
+    margin-left: 15rem;
+
+    background-color: #121418;
+    color: #ffffff;
+
+    border: 0.125rem solid #121418;
+    border-radius: 1rem;
+
+    padding: 0.5rem;
+}
+
+#modifyForm > .header > .delete:hover {
+    background-color: #5d5f85;
+    color: #121418;
+    font-weight: 600;
+}
+#modifyForm > .header > .delete:active {
+    background: #ffffff;
 }
 
 #modifyForm > .table > tbody {
