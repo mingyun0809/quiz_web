@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -16,11 +16,11 @@
         <img src="/assets/article/images/no-img.png" height="300" width="500"/>
     </div>
 <form id="quizForm">
-   <div id="title">오늘날짜</div>
-   <div>---</div>
-   <div>---</div>
+   <div id="title" th:text="${quizInfo.titleText}">오늘날짜</div>
+   <div th:text="${quizInfo.infoText}">---</div>
+<!--   <div>-&#45;&#45;</div>-->
 </form>
-    <a href="/article/quizContent"><button id="quizButton"><img src="/assets/article/images/hwasalpyo.png" height="30" width="30"/>문제 풀러가기</button></a>
+    <a th:href="@{/article/quizContent/{quizId}(quizId=${quizInfo.index})}"><button id="quizButton"><img src="/assets/article/images/hwasalpyo.png" height="30" width="30"/>문제 풀러가기</button></a>
 </div>
 
 </body>

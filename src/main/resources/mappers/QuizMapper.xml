@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kars.timpeul.mappers.QuizMapper">
+    <select id="findQListById" resultType="com.kars.timpeul.entities.QuizEntity">
+        SELECT
+            `index`           AS `index`,
+            `title_text`      AS `titleText`,
+            `info_text`       AS `infoText`,
+            `made_token`      AS `madeToken`,
+            `is_admin_only`   AS `isAdminOnly`
+        FROM
+            `5.19_test`.`q_list`
+        WHERE
+            `index` = #{quizId}
+    </select>
+
+    <select id="findFirstQuestionByQuizId" resultType="com.kars.timpeul.entities.QuizContentEntity">
+        SELECT
+            `item_index`      AS `itemIndex`,
+            `list_index`      AS `listIndex`,
+            `user_token`      AS `userToken`,
+            `title`           AS `title`,
+            `info`            AS `info`,
+            `question`        AS `question`,
+            `answers`         AS `answers`,
+            `created_at`      AS `createdAt`,
+            `modified_at`     AS `modifiedAt`,
+            `is_deleted`      AS `isDeleted`
+        FROM
+            `5.19_test`.`questions`
+        WHERE
+            `list_index` = #{quizId} AND `is_deleted` = FALSE
+        ORDER BY
+            `item_index` ASC LIMIT 1
+    </select>
+
+    <select id="findQuestionsByQuizId" resultType="com.kars.timpeul.entities.QuizContentEntity">
+        SELECT
+            `item_index`      AS `itemIndex`,
+            `list_index`      AS `listIndex`,
+            `user_token`      AS `userToken`,
+            `title`           AS `title`,
+            `info`            AS `info`,
+            `question`        AS `question`,
+            `answers`         AS `answers`,
+            `created_at`      AS `createdAt`,
+            `modified_at`     AS `modifiedAt`,
+            `is_deleted`      AS `isDeleted`
+        FROM
+            `5.19_test`.`questions`
+        WHERE
+            `list_index` = #{quizId} AND `is_deleted` = FALSE
+        ORDER BY
+            `item_index` ASC </select>
+
+    <select id="findQuestionByItemIndex" resultType="com.kars.timpeul.entities.QuizContentEntity">
+        SELECT
+            `item_index`      AS `itemIndex`,
+            `list_index`      AS `listIndex`,
+            `user_token`      AS `userToken`,
+            `title`           AS `title`,
+            `info`            AS `info`,
+            `question`        AS `question`,
+            `answers`         AS `answers`,
+            `created_at`      AS `createdAt`,
+            `modified_at`     AS `modifiedAt`,
+            `is_deleted`      AS `isDeleted`
+        FROM
+            `5.19_test`.`questions`
+        WHERE
+            `item_index` = #{itemIndex} AND `is_deleted` = FALSE
+    </select>
+</mapper>

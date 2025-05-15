@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,22 +7,23 @@
     <link rel="stylesheet" href="../../static/assets/article/styles/quizContent.css">
 
 
+
 </head>
 <body>
 <header id="header">
-
     <img id="logoImg" src="/assets/article/images/logoim.png" height="40" width="40"/>
 </header>
-   <div id="quizContainer">
+   <div id="quizContainer" th:if="${currentQuestion!=null}" th:data-item-index="${itemIndex}" th:data-quiz-id="${quizId}">
        <div id="quizImage">
-           <img src="/assets/article/images/no-img.png" height="300" width="500"/></div>
+           <img th:src="${currentQuestion.question}" height="300" width="500"/>
+       </div>
        <label id="quizLabel">
-   <input id="quizInput" type="text">
-           <a href="/article/quizResult"><button id="quizButton" type="submit"><img src="/assets/article/images/hwasalpyo.png" height="30" width="30"/></button></a>
+           <input id="quizInput" type="text">
+           <a href="#" id="submitLink"><button id="quizButton" type="submit"><img src="/assets/article/images/hwasalpyo.png" height="30" width="30"/></button></a>
        </label>
 
    </div>
 
-
+<script defer src="/assets/article/scripts/quizContent.js" th:if="${currentQuestion!=null}"></script>
 </body>
 </html>
