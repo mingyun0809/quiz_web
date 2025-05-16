@@ -15,7 +15,6 @@
         VALUES (#{questions.listIndex}, #{questions.itemIndex}, #{questions.question}, #{questions.answer})
     </insert>
 
-
     <!-- 추가  -->
     <select id="selectListByIndex" resultType="com.kars.timpeul.entities.ArticleListEntity">
         SELECT `index`         AS `index`,
@@ -38,8 +37,7 @@
         WHERE `list_index` = #{listIndex}
     </select>
 
-
-    <!-- 조회  -->
+    <!-- 모든 조회  O -->
     <select id="selectAll" resultType="com.kars.timpeul.entities.ArticleListEntity">
         SELECT `index`         AS `index`,
                `title_text`    AS `title`,
@@ -53,4 +51,19 @@
         ORDER BY `index` DESC
     </select>
 
+
+    <!-- 삭제 -->
+    <update id="update">
+        UPDATE `5.19_test`.`q_list`
+        SET `index`         = #{list.index},
+            `title_text`    = #{list.title},
+            `info_text`     = #{list.info},
+            `made_token`    = #{list.token},
+            `is_admin_only` = #{list.isAdmin},
+            `created_at`    = #{list.createdAt},
+            `modified_at`   = #{list.modifiedAt},
+            `is_deleted`    = #{list.isDeleted}
+        WHERE `index` = #{list.index}
+        LIMIT 1
+    </update>
 </mapper>

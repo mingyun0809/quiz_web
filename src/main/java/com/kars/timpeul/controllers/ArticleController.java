@@ -7,10 +7,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -59,11 +56,26 @@ public class ArticleController {
     }
 
 
-    // 조회
+    // 조회 O
     @RequestMapping(value = "/playList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ArticleListEntity[] getPlayLists() { // MemoEntity[] 배열로
         return this.articleService.getAll();
     }
+
+
+    // 수정
+
+    // 삭제
+    @RequestMapping(value = "/modify", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteIndex(@RequestParam(value = "index", required = false, defaultValue = "0") int index) {
+        ArticleResult result = this.articleService.deleteByIndex(index);
+        JSONObject response = new JSONObject();
+        response.put("result", result.toString().toLowerCase());
+
+        return response.toString();
+    }
+
 
 }

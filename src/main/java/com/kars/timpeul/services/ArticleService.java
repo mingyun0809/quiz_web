@@ -20,9 +20,6 @@ public class ArticleService {
     }
 
 
-
-
-
     //작성
     public ArticleResult write(ArticleListEntity articleList, List<String> questions, List<String> answers) {
 
@@ -30,7 +27,7 @@ public class ArticleService {
         articleList.setCreatedAt(LocalDateTime.now());
         articleList.setModifiedAt(null);
         articleList.setDeleted(false);
-        articleList.setToken("0010001");
+        articleList.setToken("0010001"); // getToken()으로 바꾸기
 
         int dbList = this.articleMapper.insertList(articleList);
         if (dbList == 0) {
@@ -41,22 +38,42 @@ public class ArticleService {
         for (int i = 0; i < questions.size(); i++) {
             ArticleQuestionEntity question = new ArticleQuestionEntity();
             question.setListIndex(listIndex);
-            question.setQuestion(questions.get(i));
-            question.setAnswer(answers.get(i));
+            question.setItemIndex(questions.size());
+            question.setQuestion(question.getQuestion());
+            question.setAnswer(question.getAnswer());
 
             int dbQuestion = this.articleMapper.insertQuestion(question);
             if (dbQuestion == 0) {
                 return ArticleResult.FAILURE;
             }
+
+
         }
         return  ArticleResult.SUCCESS;
     }
 
 
 
-    // 리스트 조회
+    // 리스트 조회 O
     public ArticleListEntity[] getAll() {
         return this.articleMapper.selectAll();
+    }
+
+
+    // 수정
+
+    // 삭제
+    public ArticleResult deleteByIndex(int index) {
+        if (index < 0) {
+            return ArticleResult.FAILURE;
+        }
+        ArticleListEntity dbList = this.articleMapper.selectListByIndex(index);
+        if (dbList == null || dbList.isDeleted()) {
+            return ArticleResult.FAILURE;
+        }
+        dbList.setDeleted(true);
+        return this.articleMapper.update(dbList) > 0 ? ArticleResult.SUCCESS : ArticleResult.FAILURE;
+
     }
 
 

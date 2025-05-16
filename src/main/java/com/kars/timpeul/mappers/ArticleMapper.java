@@ -22,4 +22,5 @@ public interface ArticleMapper {
     // 수정
 
     // 삭제
+    int update(@Param(value = "list") ArticleListEntity list);
 }
