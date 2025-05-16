@@ -32,6 +32,3 @@ build/
 ### VS Code ###
 .vscode/
 
-#KAKAO_KEY
-.env
-config.js
