@@ -1,3 +1,5 @@
+import { KAKAO_KEY } from './config'
+
 // 카카오 로그인 처리
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -23,7 +25,7 @@ function loadKakaoSDK() {
 
 // 카카오 SDK 초기화
 function initializeKakao() {
-    Kakao.init('JAVASCRIPT_KEY');
+    Kakao.init(KAKAO_KEY);
     console.log(Kakao.isInitialized());
 }
 
