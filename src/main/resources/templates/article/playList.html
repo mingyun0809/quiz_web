@@ -21,7 +21,8 @@
         <div class="stretch"></div>
         <a class="button" href="/article/write" name="write">퀴즈작성</a>
         <a class="button" href="/article/made" name="modify">퀴즈수정</a>
-        <a class="logout" href="/article/login">로그아웃</a>
+        <a class="logout" th:href="${session.loggedInUser != null} ? '/article/logout' : '/article/login'"
+                          th:text="${session.loggedInUser != null} ? '로그아웃' : '로그인'">로그인</a>
     </header>
 
 
