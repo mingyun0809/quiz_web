@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -12,7 +12,7 @@
     <img id="logoImg" src="/assets/article/images/logoim.png" height="40" width="40"/>
 </header>
 <div id="quizContainer">
-    <div id="quizResult">0개 맞췄습니다</div>
+    <div id="quizResult" th:text="${numberCorrectAnswer}+'개 맞췄습니다'">0개 맞췄습니다</div>
     <div id="quizResultContent">
         <span>당신은 상위 100%입니다</span>
         <div id="graphContainer">

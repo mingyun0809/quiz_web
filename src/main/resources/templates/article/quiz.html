@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,16 +11,17 @@
     <img id="logoImg" src="/assets/article/images/logoim.png" height="40" width="40"/>
 </header>
 
-<div id="quizContainer">
+<div id="quizContainer" th:if="${quizInfo!=null}">
     <div id="quizImage">
-        <img src="/assets/article/images/no-img.png" height="300" width="500"/>
+        <img th:if="${firstQuestion.question!=null}" th:src="${firstQuestion.question}">
+        <img th:if="${firstQuestion.question==null}" src="/assets/article/images/no-img.png" height="300" width="500"/>
     </div>
-<form id="quizForm">
-   <div id="title">오늘날짜</div>
-   <div>---</div>
-   <div>---</div>
-</form>
-    <a href="/article/quizContent"><button id="quizButton"><img src="/assets/article/images/hwasalpyo.png" height="30" width="30"/>문제 풀러가기</button></a>
+    <form id="quizForm">
+        <div id="title" th:text="${quizInfo.title}">오늘날짜</div>
+        <div th:text="${quizInfo.info}">---</div>
+        <!--   <div>-&#45;&#45;</div>-->
+    </form>
+    <a th:href="@{/article/quizContent/{quizId}(quizId=${quizInfo.index})}"><button id="quizButton"><img src="/assets/article/images/hwasalpyo.png" height="30" width="30"/>문제 풀러가기</button></a>
 </div>
 
 </body>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kars.timpeul.mappers.QuizMapper">
+
+    <select id="findQListById" resultType="com.kars.timpeul.entities.ArticleListEntity">
+        SELECT
+            `index`           AS `index`,
+            `title_text`      AS `title`,
+            `info_text`       AS `info`,
+            `made_token`      AS `madeToken`,
+            `is_admin_only`   AS `isAdminOnly`,
+            `created_at`      AS `createdAt`,
+            `modified_at`     AS `modifiedAt`,
+            `is_deleted`      AS `isDeleted`
+        FROM
+            `5.19_test`.`q_list` WHERE
+            `index` = #{quizId}
+    </select>
+    <select id="findFirstQuestionByQuizId" resultType="com.kars.timpeul.entities.ArticleQuestionEntity">
+        SELECT
+            `item_index`      AS `itemIndex`,
+            `list_index`      AS `listIndex`,
+            `question`        AS `question`,
+            `answers`         AS `answer`
+        FROM
+            `5.19_test`.`questions`
+        WHERE
+            `list_index` = #{quizId}
+        ORDER BY                  `item_index` ASC
+        LIMIT 1
+    </select>
+    <select id="findQuestionsByQuizId" resultType="com.kars.timpeul.entities.ArticleQuestionEntity">
+        SELECT
+            `item_index`      AS `itemIndex`,
+            `list_index`      AS `listIndex`,
+            `question`        AS `question`,
+            `answers`         AS `answer`
+        FROM
+            `5.19_test`.`questions`
+        WHERE
+            `list_index` = #{quizId}
+        ORDER BY                 `item_index` ASC
+    </select>
+    <select id="findQuestionByItemIndex" resultType="com.kars.timpeul.entities.ArticleQuestionEntity">
+        SELECT
+            `item_index`      AS `itemIndex`,
+            `list_index`      AS `listIndex`,
+            `question`        AS `question`,
+            `answers`         AS `answer`
+        FROM
+            `5.19_test`.`questions`
+        WHERE
+            `item_index` = #{itemIndex}
+    </select>
+    <select id="findNextQuestion" resultType="com.kars.timpeul.entities.ArticleQuestionEntity">
+        SELECT
+            `item_index`      AS `itemIndex`,
+            `list_index`      AS `listIndex`,
+            `question`        AS `question`,
+            `answers`         AS `answer`
+        FROM
+            `5.19_test`.`questions`
+        WHERE
+            `list_index` = #{quizId}
+          AND `item_index` > #{currentItemIndex}
+        ORDER BY `item_index` ASC
+        LIMIT 1
+    </select>
+</mapper>

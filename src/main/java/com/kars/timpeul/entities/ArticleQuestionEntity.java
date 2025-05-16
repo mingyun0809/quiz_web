@@ -12,4 +12,6 @@ public class ArticleQuestionEntity {
     private int itemIndex;
     private String question;
     private String answer;
+
+
 }
