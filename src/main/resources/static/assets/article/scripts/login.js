@@ -23,7 +23,7 @@ function loadKakaoSDK() {
 
 // 카카오 SDK 초기화
 function initializeKakao() {
-    Kakao.init('b7204261df82449eb7466dcc84bb4552');
+    Kakao.init('JAVASCRIPT_KEY');
     console.log(Kakao.isInitialized());
 }
 
