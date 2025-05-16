@@ -159,3 +159,11 @@ input, textarea {
     border-radius: 1rem;
 }
 
+
+#modifyForm > .button-container > .button:hover {
+    background-color: #6e6fa1;
+}
+#modifyForm > .button-container > .button:active {
+    background-color: #bdbee7;
+}
+
