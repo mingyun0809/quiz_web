@@ -1,5 +1,4 @@
 // 카카오 로그인 처리
-
 document.addEventListener('DOMContentLoaded', function() {
     // 카카오 SDK 스크립트 로드
     loadKakaoSDK();
@@ -23,8 +22,7 @@ function loadKakaoSDK() {
 
 // 카카오 SDK 초기화
 function initializeKakao() {
-    // 앱 키 설정 - 실제 키로 변경 필요
-    Kakao.init('YOUR_KAKAO_JAVASCRIPT_KEY');
+    Kakao.init('b7204261df82449eb7466dcc84bb4552');
     console.log(Kakao.isInitialized());
 }
 
