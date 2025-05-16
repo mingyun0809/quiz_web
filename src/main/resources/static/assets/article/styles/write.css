@@ -136,8 +136,8 @@ input, textarea {
 }
 
 #writeForm > .button-container > .button:hover {
-    background-color: #bdbee7;
+    background-color: #6e6fa1;
 }
 #writeForm > .button-container > .button:active {
-    background-color: #6e6fa1;
+    background-color: #bdbee7;
 }

@@ -9,11 +9,10 @@
     <link rel="stylesheet" href="/assets/styles/common.css">
     <link rel="stylesheet" href="/assets/article/styles/write.css">
 
-    <script defer src="/assets/article/scripts/write.js"></script>
+
     <title>퀴즈 작성</title>
 </head> <!--  http://localhost:8080/article/write -->
 <body>
-
 <form novalidate id="writeForm">
     <header class="header">
         <h1 class="title">퀴즈 작성</h1>
@@ -21,12 +20,12 @@
     </header>
 
     <table class="table">
-        <tbody>
+        <tbody id="questionTable">
         <tr>
             <th scope="row">
                 <label class="caption" for="writeTitle">퀴즈 제목</label>
             </th>
-            <td>
+            <td colspan="5">
                 <div class="row">
                     <input autofocus required class="info" id="writeTitle" maxlength="100" minlength="1" name="Title"
                            type="text" placeholder="퀴즈 제목을 입력해 주세요">
@@ -38,55 +37,56 @@
             <th scope="row">
                 <label class="caption" for="writeInfo">퀴즈 설명</label>
             </th>
-            <td>
+            <td colspan="5">
                 <div class="row">
                     <textarea required class="info" id="writeInfo" maxlength="300" minlength="1" name="info"
                               placeholder="퀴즈 설명을 입력해 주세요"></textarea>
                 </div>
             </td>
         </tr>
-        <tr class="QnA ">
+
+        <!-- 기본 QnA 행 (복제 기준) -->
+        <tr class="QnA">
             <th scope="row" class="col">
-                <label class="caption" for="writeQuestion">질문</label>
+                <label class="caption">질문</label>
             </th>
             <td>
                 <div class="row img-box">
-                    <img alt="이미지 넣기" class="question" id="writeQuestion" src="" name="question"> <!-- th:src -->
+                    <img alt="이미지 넣기" class="question" src="" name="question">
+                    <input type="hidden" name="question[]" value="">
                 </div>
             </td>
             <th scope="row" class="col">
-                <label class="caption" for="writeAnswer">정답</label>
+                <label class="caption">정답</label>
             </th>
             <td>
                 <div class="row">
-                    <input required class="A" id="writeAnswer" maxlength="250" minlength="1" name="answer" type="text"
+                    <input required class="A" maxlength="250" minlength="1" name="answer[]" type="text"
                            placeholder="정답을 입력해 주세요">
                 </div>
             </td>
             <td class="stretch"></td>
             <td>
                 <div class="row buttons">
-                    <button class="button" name="plus" type="submit">
+                    <button class="button" name="plus" type="button">
                         <img alt="" class="icon" src="/assets/article/images/plus.png">
                     </button>
-                    <button class="button" name="minus" type="submit">
+                    <button class="button" name="minus" type="button">
                         <img alt="" class="icon" src="/assets/article/images/minus.png">
                     </button>
                 </div>
             </td>
-        </tr> <!--얘 반복 -->
+        </tr>
         </tbody>
     </table>
 
     <div class="button-container">
         <a class="button" href="/article/playList">취소</a>
-        <!-- th:href="@{/border/list (id = ${border.getId()})}" // 주소식: @{주소 (이름 = 값, 이름2 = 값2)} -->
         <button class="button" name="make" type="submit">작성하기</button>
     </div>
-
-
 </form>
 
-
+<script defer src="/assets/article/scripts/write.js"></script>
 </body>
+
 </html>

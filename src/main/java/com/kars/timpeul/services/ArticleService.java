@@ -1,0 +1,63 @@
+package com.kars.timpeul.services;
+
+import com.kars.timpeul.entities.ArticleListEntity;
+import com.kars.timpeul.entities.ArticleQuestionEntity;
+import com.kars.timpeul.mappers.ArticleMapper;
+import com.kars.timpeul.results.ArticleResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Service
+public class ArticleService {
+    private final ArticleMapper articleMapper;
+
+    @Autowired
+    public ArticleService(ArticleMapper articleMapper) {
+        this.articleMapper = articleMapper;
+    }
+
+
+
+
+
+    //작성
+    public ArticleResult write(ArticleListEntity articleList, List<String> questions, List<String> answers) {
+
+        articleList.setAdmin(false);
+        articleList.setCreatedAt(LocalDateTime.now());
+        articleList.setModifiedAt(null);
+        articleList.setDeleted(false);
+        articleList.setToken("0010001");
+
+        int dbList = this.articleMapper.insertList(articleList);
+        if (dbList == 0) {
+            return ArticleResult.FAILURE;
+        }
+
+        int listIndex = articleList.getIndex();
+        for (int i = 0; i < questions.size(); i++) {
+            ArticleQuestionEntity question = new ArticleQuestionEntity();
+            question.setListIndex(listIndex);
+            question.setQuestion(questions.get(i));
+            question.setAnswer(answers.get(i));
+
+            int dbQuestion = this.articleMapper.insertQuestion(question);
+            if (dbQuestion == 0) {
+                return ArticleResult.FAILURE;
+            }
+        }
+        return  ArticleResult.SUCCESS;
+    }
+
+
+
+    // 리스트 조회
+    public ArticleListEntity[] getAll() {
+        return this.articleMapper.selectAll();
+    }
+
+
+}
