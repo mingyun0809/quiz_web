@@ -14,7 +14,7 @@
 </head> <!--  http://localhost:8080/article/playList -->
 <body>
 
-<!-- 타임리프 넣기 -->
+
 <form novalidate id="playListForm">
     <header class="header">
         <a class="caption" href="/article/playList">Q and A</a>
@@ -28,12 +28,14 @@
     <div class="container">
         <h1 class="title">퀴즈 리스트</h1>
         <div class="play-list" id="playList">
-            <a class="play-item" id="index" href="" name="item"> <!-- th:href="@{/article/ (index = ${article.getIndex()})} -->
+            <!--
+            <a class="play-item" id="index" href="" name="item">
                 <img class="img" alt="" id="question" src="/assets/article/images/no-img.png">
                 <span class="caption" id="title">사자성어</span>
                 <span class="info" id="info">사자성어 해석을 보고 무슨 성어인지 입력해주세요</span>
-                <!-- db 에서 일정 글자 수 이상은 ... 표시-->
+                db 에서 일정 글자 수 이상은 ... 표시
             </a>
+            -->
         </div>
     </div>
 
