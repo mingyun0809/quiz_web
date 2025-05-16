@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const $writeForm = document.getElementById('writeForm');
     const tbody = document.getElementById('questionTable');
 
+    //작성
     $writeForm.onsubmit = (e) => {
         e.preventDefault();
 
@@ -27,10 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const formData = new FormData();
-        formData.append('title', title); // title 주의
+        formData.append('Title', title); // title 주의
         formData.append('info', info);
-        questions.forEach(question => formData.append('question', question));
-        answers.forEach(answer => formData.append('answer', answer));
+        questions.forEach(question => formData.append('questions[]', question));
+        answers.forEach(answer => formData.append('answers[]', answer));
 
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '/article/write');
@@ -48,9 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert("작성에 실패하였습니다.");
             }
         };
-        xhr.open('POST', '/article/playList');
+        xhr.open('POST', '/article/write');
         xhr.send(formData);
     };
+
+
+
 
     // 이미지 드롭
     tbody.addEventListener('drop', async (e) => {
@@ -85,11 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
-
     tbody.addEventListener('dragover', (e) => e.preventDefault());
-
-
 
     // +- 버튼
     tbody.addEventListener('click', (e) => {
@@ -118,16 +118,15 @@ document.addEventListener('DOMContentLoaded', () => {
         tr.classList.add('QnA');
         tr.innerHTML = `
             <th scope="row" class="col">
-                <label class="caption">질문</label>
+                <span class="caption">질문</span>
             </th>
             <td>
-                <div class="row img-box">
-                    <img alt="이미지 넣기" class="question" src="" name="question">
-                    <input type="hidden" name="question[]" value="">
+                <div class="row">
+                    <input required class="Q" maxlength="255" minlength="1" name="question[]" type="text" placeholder="이미지 주소를 입력해 주세요">
                 </div>
             </td>
             <th scope="row" class="col">
-                <label class="caption">정답</label>
+                <span class="caption">정답</span>
             </th>
             <td>
                 <div class="row">
