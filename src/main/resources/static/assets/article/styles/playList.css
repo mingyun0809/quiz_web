@@ -85,6 +85,7 @@
     flex-direction: column;
     gap: 0.5rem;
     justify-content: flex-start;
+    cursor: pointer;
 
     border: 0.125rem solid #313491;
     border-radius: 1rem;
