@@ -60,13 +60,13 @@
 
 
 #madeForm > .container {
-    min-width: 40rem;
     margin: 3rem;
 
     align-items: center;
     display: block;
     flex-direction: column;
     justify-content: center;
+
 }
 
 #madeForm > .container > .title {
@@ -144,6 +144,7 @@
     color:#ffffff;
 
     padding: 2rem 1.5rem;
+    bottom: 0;
 }
 
 

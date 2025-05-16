@@ -19,7 +19,7 @@
     <h1 class="title">퀴즈 수정</h1>
     <span class="line"></span>
     <span class="status"></span>
-    <button class="delete" type="submit">삭제하기</button>
+    <button class="delete" type="submit" id="deleteButton">삭제하기</button>
 </header>
 
 <table class="table">
@@ -52,8 +52,8 @@
             <label class="caption">질문</label>
         </th>
         <td>
-            <div class="row img-box">
-                <img alt="이미지 넣기" class="question" src=""> <!-- th:src -->
+            <div class="row">
+                <input required class="Q" maxlength="255" minlength="1" name="question[]" type="text" placeholder="본래 이미지 주소">
             </div>
         </td>
         <th scope="row" class="col">
@@ -61,7 +61,7 @@
         </th>
         <td>
             <div class="row">
-                <input required class="A" id="" maxlength="500" minlength="1" name="Q" type="text"
+                <input required class="A" id="" maxlength="255" minlength="1" name="answer[]" type="text"
                        placeholder="본래 정답">
             </div>
         </td>
