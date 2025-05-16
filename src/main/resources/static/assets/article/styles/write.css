@@ -135,3 +135,9 @@ input, textarea {
     border-radius: 1rem;
 }
 
+#writeForm > .button-container > .button:hover {
+    background-color: #bdbee7;
+}
+#writeForm > .button-container > .button:active {
+    background-color: #6e6fa1;
+}
