@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kars.timpeul.mappers.ArticleQuestionMapper">
+
+    <insert id="insertQuestion">
+        INSERT INTO `5.19_test`.`questions` (list_index, item_index, question, answers)
+        VALUES (#{questions.listIndex}, #{questions.itemIndex}, #{questions.question}, #{questions.answer})
+    </insert>
+    <select id="selectQuestionByIndex" resultType="com.kars.timpeul.entities.ArticleQuestionEntity">
+        SELECT `list_index` AS `listIndex`,
+        `item_index` AS `itemIndex`,
+        `question`   AS `question`,
+        `answers`    AS `answers`
+        FROM `5.19_test`.`questions`
+        WHERE `list_index` = #{listIndex}
+    </select>
+</mapper>

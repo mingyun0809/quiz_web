@@ -1,8 +1,10 @@
 package com.kars.timpeul.controllers;
 
 import com.kars.timpeul.entities.ArticleListEntity;
+import com.kars.timpeul.entities.UserEntity;
 import com.kars.timpeul.results.ArticleResult;
 import com.kars.timpeul.services.ArticleService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,14 +21,17 @@ public class ArticleController {
     public String getPlayList() {
         return "article/playList";
     }
+
     @RequestMapping(value = "/write", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public String getWrite() {
         return "article/write";
     }
+
     @RequestMapping(value = "/modify", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public String getModify() {
         return "article/modify";
     }
+
     @RequestMapping(value = "/made", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public String getMade() {
         return "article/made";
@@ -41,41 +46,30 @@ public class ArticleController {
 
 
     // 작성
-    @RequestMapping(value = "/write", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/write", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String postWrite(ArticleListEntity articleList,
-                            @RequestParam(value = "question") List<String> questions,
-                            @RequestParam(value = "answer") List<String> answers) {
-        ArticleResult result = this.articleService.write(articleList, questions, answers);
+    public String postWrite(
+            @RequestParam("Title") String title,
+            @RequestParam("info") String info,
+            @RequestParam(value = "question") List<String> questions,
+            @RequestParam(value = "answer") List<String> answers) {
+
+        ArticleResult result = articleService.write(title, info, questions, answers);
         JSONObject response = new JSONObject();
         response.put("result", result.toString().toLowerCase());
-        if (result == ArticleResult.SUCCESS) {
-            response.put("index", articleList.getIndex());
-        }
+
         return response.toString();
     }
 
 
-    // 조회 O
+    // 모든 퀴즈 조회 O
     @RequestMapping(value = "/playList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ArticleListEntity[] getPlayLists() { // MemoEntity[] 배열로
         return this.articleService.getAll();
     }
 
-
-    // 수정
-
-    // 삭제
-    @RequestMapping(value = "/modify", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String deleteIndex(@RequestParam(value = "index", required = false, defaultValue = "0") int index) {
-        ArticleResult result = this.articleService.deleteByIndex(index);
-        JSONObject response = new JSONObject();
-        response.put("result", result.toString().toLowerCase());
-
-        return response.toString();
-    }
+    // 내가 만든 퀴즈 조회
 
 
 }
