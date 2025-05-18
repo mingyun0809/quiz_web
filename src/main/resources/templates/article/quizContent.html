@@ -15,7 +15,7 @@
 </header>
 <div id="quizContainer" th:if="${currentQuestion!=null}" th:data-item-index="${itemIndex}" th:data-quiz-id="${quizId}">
     <div id="quizImage">
-        <img id="currentQuizImage" th:src="${currentQuestion.question}" height="300" width="500"/>
+        <img id="currentQuizImage" th:src="${currentQuestion.question}" height="300" width="300"/>
     </div>
     <label id="quizLabel">
         <input id="quizInput" type="text">

@@ -3,55 +3,49 @@ document.addEventListener('DOMContentLoaded', () => {
     const $writeForm = document.getElementById('writeForm');
     const tbody = document.getElementById('questionTable');
 
+    // 처음에 QnA 하나 추가
+    tbody.appendChild(createQuestionBox());
     //작성
-    $writeForm.onsubmit = (e) => {
+    $writeForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        const title = $writeForm['Title'].value.trim();
-        const info = $writeForm['info'].value.trim();
-        const questions = Array.from($writeForm.querySelectorAll('input[name="question[]"]')).map(input => input.value.trim());
-        const answers = Array.from($writeForm.querySelectorAll('input[name="answer[]"]')).map(input => input.value.trim());
+        const title = document.getElementById('writeTitle').value;
+        const info = document.getElementById('writeInfo').value;
+        const questionInputs = document.querySelectorAll('input[name="question[]"]');
+        const answerInputs = document.querySelectorAll('input[name="answer[]"]');
 
-        if (!title || !info) {
-            alert("제목과 설명을 입력해 주세요.");
-            return;
-        }
+        const questions = [];
+        const answers = [];
 
-        if (answers.some(answer => !answer)) {
-            alert("비어있는 정답 칸이 있습니다.");
-            return;
-        }
+        questionInputs.forEach(input => questions.push(input.value));
+        answerInputs.forEach(input => answers.push(input.value));
 
-        if (title.length > 255 || info.length > 255 || questions.some(q => q.length > 255) || answers.some(a => a.length > 255)) {
-            alert("입력값이 너무 깁니다. (최대 255자)");
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append('Title', title); // title 주의
-        formData.append('info', info);
-        questions.forEach(question => formData.append('questions[]', question));
-        answers.forEach(answer => formData.append('answers[]', answer));
+        const params = new URLSearchParams();
+        params.append('Title', title);
+        params.append('info', info);
+        questions.forEach(q => params.append('question', q));
+        answers.forEach(a => params.append('answer', a));
 
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/article/write');
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState !== XMLHttpRequest.DONE) return;
-            if (xhr.status < 200 || xhr.status >= 300) {
-                alert(`[${xhr.status}] 잠시 후 다시 시도해 주세요`);
-                return;
-            }
-
-            const response = JSON.parse(xhr.responseText);
-            if (response.result === 'success') {
-                location.href = `/article/${response.index}`;
-            } else {
-                alert("작성에 실패하였습니다.");
+        xhr.open('POST', '/article/write', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    const result = JSON.parse(xhr.responseText);
+                    if (result.result === 'success') {
+                        alert('작성 완료! 퀴즈가 만들어졌습니다.');
+                        window.location.href = '/article/playList';
+                    } else {
+                        alert('작성 실패: 중복 제목 혹은 서버 오류');
+                    }
+                } else {
+                    alert('서버 오류가 발생했습니다. (' + xhr.status + ')');
+                }
             }
         };
-        xhr.open('POST', '/article/write');
-        xhr.send(formData);
-    };
+        xhr.send(params.toString());
+    });
 
 
 

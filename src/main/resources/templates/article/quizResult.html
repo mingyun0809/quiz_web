@@ -13,44 +13,46 @@
 </header>
 <div id="quizContainer">
     <div id="quizResult" th:text="${numberCorrectAnswer}+'개 맞췄습니다'">0개 맞췄습니다</div>
-    <div id="quizResultContent">
-        <span>당신은 상위 100%입니다</span>
+    <div id="quizResultContent" th:data-percentage="${percentage}">
+        <span th:text="${customResultMessage}">수고하셨습니다</span>
+
         <div id="graphContainer">
-            <button type="button" id="graph" style="height: 40px">
+            <button type="button" class="graph-bar" style="height: 40px">
 <!--                <span id="data1" style="height: 10%"></span>-->
 <!--                <span id="data2" style="height: 50%"></span>-->
 <!--                <span id="data3" style="height: 80%"></span>-->
             </button>
-            <button type="button" id="graph" style="height: 50px">
+            <button type="button" class="graph-bar" style="height: 50px">
 <!--                <span id="data1" style="height: 10%"></span>-->
 <!--                <span id="data2" style="height: 50%"></span>-->
 <!--                <span id="data3" style="height: 80%"></span>-->
             </button>
-            <button type="button" id="graph" style="height: 60px">
+            <button type="button" class="graph-bar" style="height: 60px">
 <!--                <span id="data1" style="height: 10%"></span>-->
 <!--                <span id="data2" style="height: 50%"></span>-->
 <!--                <span id="data3" style="height: 80%"></span>-->
             </button>
-            <button type="button" id="graph" style="height: 70px" ></button>
-            <button type="button" id="graph" style="height: 80px"></button>
-            <button type="button" id="graph" style="height: 90px"></button>
-            <button type="button" id="graph" style="height: 100px"></button>
-            <button type="button" id="graph" style="height: 110px"></button>
-            <button type="button" id="graph" style="height: 120px"></button>
-            <button type="button" id="graph" style="height: 110px"></button>
-            <button type="button" id="graph" style="height: 100px"></button>
-            <button type="button" id="graph" style="height: 90px"></button>
-            <button type="button" id="graph" style="height: 80px"></button>
-            <button type="button" id="graph" style="height: 70px"></button>
-            <button type="button" id="graph" style="height: 60px"></button>
-            <button type="button" id="graph" style="height: 50px"></button>
-            <button type="button" id="graph" style="height: 40px"></button>
+            <button type="button" class="graph-bar" style="height: 70px" ></button>
+            <button type="button" class="graph-bar" style="height: 80px"></button>
+            <button type="button" class="graph-bar" style="height: 90px"></button>
+            <button type="button" class="graph-bar" style="height: 100px"></button>
+            <button type="button" class="graph-bar" style="height: 110px"></button>
+            <button type="button" class="graph-bar" style="height: 120px"></button>
+            <button type="button" class="graph-bar" style="height: 110px"></button>
+            <button type="button" class="graph-bar" style="height: 100px"></button>
+            <button type="button" class="graph-bar" style="height: 90px"></button>
+            <button type="button" class="graph-bar" style="height: 80px"></button>
+            <button type="button" class="graph-bar" style="height: 70px"></button>
+            <button type="button" class="graph-bar" style="height: 60px"></button>
+            <button type="button" class="graph-bar" style="height: 50px"></button>
+            <button type="button" class="graph-bar" style="height: 40px"></button>
 
 
         </div>
         <a href="/article/playList"><button id="home">홈으로</button></a>
-        <button id="retry">다시하기</button>
+        <a th:href="@{/article/quiz/{quizId}(quizId=${currentQuizId})}"><button id="retry">다시하기</button></a>
     </div>
 </div>
+<script src="/assets/article/scripts/quizResult.js"></script>
 </body>
 </html>

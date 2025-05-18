@@ -60,7 +60,7 @@ body {
 }
 
 
-#graph {
+.graph-bar {
     /* position: relative; */
     margin: 0;
     padding: 0;

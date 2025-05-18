@@ -27,7 +27,7 @@
         WHERE
             `list_index` = #{quizId}
         ORDER BY                  `item_index` ASC
-        LIMIT 1
+            LIMIT 1
     </select>
     <select id="findQuestionsByQuizId" resultType="com.kars.timpeul.entities.ArticleQuestionEntity">
         SELECT
@@ -64,6 +64,6 @@
             `list_index` = #{quizId}
           AND `item_index` > #{currentItemIndex}
         ORDER BY `item_index` ASC
-        LIMIT 1
+            LIMIT 1
     </select>
 </mapper>

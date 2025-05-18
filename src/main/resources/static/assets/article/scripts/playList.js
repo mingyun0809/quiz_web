@@ -17,7 +17,7 @@ const loadQuestions = () => {
         let listBody = '';
         for (const list of lists) {
             listBody += `
-            <a class="play-item" href="/article/quiz?index=${list['index']}">
+            <a class="play-item" href="/article/quiz/${list['index']}">
                 <img class="img" alt="" src="/assets/article/images/no-img.png"> <!-- 이미지url -->
                 <span class="caption" id="title">${list['title']}</span>
                 <span class="info" id="info">${list['info'].length > 60 ? list['info'].slice(0, 60) + '... [축약]' : list['info']}</span>

@@ -6,63 +6,113 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     let currentQuizId = parseInt(quizContainer.dataset.quizId);
-    let currentItemIndex = parseInt(quizContainer.dataset.itemIndex); // 초기 itemIndex
+    let currentItemIndex = parseInt(quizContainer.dataset.itemIndex);
 
     const quizInput = document.getElementById('quizInput');
-    const submitAnswerLink = document.getElementById('submitLink'); // <a> 태그
-    // const quizButton = document.getElementById('quizButton'); // submitAnswerLink로 제어
-    const quizImageDiv = document.getElementById('quizImage'); // 이미지 감싸는 div
-    const quizLabel = document.getElementById('quizLabel');
+    const submitAnswerLink = document.getElementById('submitLink'); // 화살표 버튼을 감싸는 <a> 태그
+    const quizImageEl = document.getElementById('currentQuizImage');
+    const quizLabel = document.getElementById('quizLabel'); // input과 submitAnswerLink를 감싸는 label
 
-    // quizState와 answerResultDiv를 addEventListener 바깥 스코프에서 선언 및 초기화
-    let quizState = 'ANSWERING'; // 초기 상태: 답변 입력 중
-    let answerResultDiv = null;  // 맨 처음엔 null, 필요시 생성
+    let quizState = 'ANSWERING'; // ANSWERING, SHOWING_RESULT
 
-    if (!submitAnswerLink || !quizInput || !quizLabel) {
+    // 결과 표시용 DOM 요소들 (한 번만 생성)
+    let resultDisplayContainer = null;
+    let answerResultMessageDiv = null;
+    let correctAnswerDisplayDiv = null;
+
+    // 필수 UI 요소 확인
+    if (!submitAnswerLink || !quizInput || !quizImageEl || !quizLabel) {
         console.error('Error: Essential UI elements are missing.');
         return;
     }
 
-    // 답변 결과 Div를 생성하거나 가져오는 함수 (DOM에 추가하는 로직 포함)
-    function ensureAnswerResultDiv() {
-        if (!answerResultDiv) { // DOM에 answerResultDiv가 아직 없으면 생성
-            const existingDiv = document.getElementById('answerResult');
-            if (existingDiv) {
-                answerResultDiv = existingDiv;
-            } else {
-                answerResultDiv = document.createElement('div');
-                answerResultDiv.id = 'answerResult';
-                answerResultDiv.style.marginTop = '20px';
-                answerResultDiv.style.textAlign = 'center';
-                answerResultDiv.style.fontWeight = 'bold';
-                answerResultDiv.style.fontSize = '1.2em';
+    // 결과 표시 영역을 생성하고 DOM에 추가하는 함수
+    function initializeResultDisplayArea() {
+        if (!resultDisplayContainer) { // 한 번만 생성
+            resultDisplayContainer = document.createElement('div');
+            resultDisplayContainer.id = 'resultDisplayContainer';
+            resultDisplayContainer.style.marginTop = '20px';
+            resultDisplayContainer.style.textAlign = 'center';
 
-                // quizLabel 다음, 즉 입력창과 버튼 아래에 결과 메시지 표시
-                if (quizLabel && quizLabel.parentNode) {
-                    quizLabel.parentNode.insertBefore(answerResultDiv, quizLabel.nextSibling);
-                } else if (quizContainer) { // Fallback
-                    quizContainer.appendChild(answerResultDiv);
+            answerResultMessageDiv = document.createElement('div');
+            answerResultMessageDiv.id = 'answerResultMessage';
+            answerResultMessageDiv.style.fontWeight = 'normal';
+            answerResultMessageDiv.style.fontSize = '1em';
+            answerResultMessageDiv.style.marginBottom = '10px';
+
+            correctAnswerDisplayDiv = document.createElement('div');
+            correctAnswerDisplayDiv.style.fontWeight='bold';
+            correctAnswerDisplayDiv.id = 'correctAnswerDisplay';
+            correctAnswerDisplayDiv.style.fontSize = '1.2em';
+            correctAnswerDisplayDiv.style.color='white';
+
+            resultDisplayContainer.appendChild(answerResultMessageDiv);
+            resultDisplayContainer.appendChild(correctAnswerDisplayDiv);
+
+            // resultDisplayContainer를 quizLabel 다음에 삽입 (초기 위치)
+            // quizContainer의 자식으로, quizLabel의 다음 형제로 삽입
+            if (quizLabel.parentNode === quizContainer) { // quizLabel이 quizContainer의 직계 자식인지 확인
+                if (quizLabel.nextSibling) {
+                    quizContainer.insertBefore(resultDisplayContainer, quizLabel.nextSibling);
+                } else {
+                    quizContainer.appendChild(resultDisplayContainer);
                 }
+            } else {
+                // 예외 처리: quizLabel의 부모가 quizContainer가 아닌 경우, quizContainer의 마지막에 추가
+                console.warn('quizLabel is not a direct child of quizContainer. Appending resultDisplayContainer to quizContainer.');
+                quizContainer.appendChild(resultDisplayContainer);
             }
         }
-        return answerResultDiv;
+        resultDisplayContainer.style.display = 'none'; // 초기에는 숨김
     }
+
+    initializeResultDisplayArea(); // 페이지 로드 시 결과 표시 영역 초기화
+
+    // 버튼을 원하는 위치로 옮기거나 원래 위치로 복원하는 함수
+    function arrangeElements(showResult) {
+        if (showResult) {
+            // 순서: 메시지 -> 정답 -> 버튼
+            quizInput.style.display = 'none';
+            resultDisplayContainer.style.display = 'block';
+
+            // 버튼(submitAnswerLink)을 resultDisplayContainer 다음으로 이동
+            if (submitAnswerLink.parentNode) { // 버튼이 DOM에 연결되어 있다면
+                // resultDisplayContainer의 부모(quizContainer)에, resultDisplayContainer 다음 형제로 submitAnswerLink 삽입
+                resultDisplayContainer.parentNode.insertBefore(submitAnswerLink, resultDisplayContainer.nextSibling);
+            }
+
+        } else {
+            // 초기 상태 (다음 문제): 입력창 -> 버튼 -> (숨겨진 메시지/정답 영역)
+            quizInput.style.display = 'inline-block'; // 또는 'block'
+            resultDisplayContainer.style.display = 'none';
+
+            // 버튼(submitAnswerLink)을 다시 quizLabel의 자식으로 (원래 HTML 구조대로)
+            // quizLabel의 마지막 자식으로 추가 (원래 input 다음에 있었으므로, 더 정확하려면 insertBefore 사용)
+            if (submitAnswerLink.parentNode !== quizLabel) {
+                quizLabel.appendChild(submitAnswerLink);
+            }
+        }
+    }
+
 
     submitAnswerLink.addEventListener('click', function (e) {
         e.preventDefault();
-        const resultDisplayDiv = ensureAnswerResultDiv(); // 여기서 div를 가져오거나 생성 및 삽입
 
         if (quizState === 'ANSWERING') {
             const userAnswer = quizInput.value;
 
             if (!userAnswer.trim()) {
-                resultDisplayDiv.textContent = '정답을 입력해주세요';
-                resultDisplayDiv.style.color = 'orange';
+                if (answerResultMessageDiv && correctAnswerDisplayDiv && resultDisplayContainer) {
+                    answerResultMessageDiv.textContent = '정답을 입력해주세요';
+                    answerResultMessageDiv.style.color = 'orange';
+                    correctAnswerDisplayDiv.textContent = '';
+                    resultDisplayContainer.style.display = 'block';
+                }
                 return;
             }
 
             const formData = new FormData();
-            formData.append('itemIndex', currentItemIndex); // 현재 문제의 itemIndex
+            formData.append('itemIndex', currentItemIndex);
             formData.append('userAnswer', userAnswer);
             formData.append('quizId', currentQuizId);
 
@@ -80,68 +130,66 @@ document.addEventListener('DOMContentLoaded', function () {
                     return response.json();
                 })
                 .then(data => {
-                    resultDisplayDiv.textContent = data.message;
-                    resultDisplayDiv.style.color = data.correct ? 'green' : 'red';
+                    if (answerResultMessageDiv && correctAnswerDisplayDiv && resultDisplayContainer) {
+                        answerResultMessageDiv.textContent = data.message; // "정답!" 또는 "오답!"
+                        answerResultMessageDiv.style.color = data.correct ? 'white' : 'white'; // 초록색 또는 빨간색
+                        correctAnswerDisplayDiv.textContent = data.correctAnswer; // Controller에서 "correctAnswer" 키로 보낸 실제 정답
 
-                    if (quizInput) {
-                        quizInput.style.display = 'none'; // 입력창 숨기기
+                        arrangeElements(true);
                     }
-                    quizState = 'SHOWING_RESULT'; // 상태 변경 -> 다음 클릭은 '다음 문제' 로직
+                    quizState = 'SHOWING_RESULT';
                 })
                 .catch(error => {
                     console.error('Error checking answer:', error);
-                    resultDisplayDiv.textContent = '답변 확인 중 오류가 발생했습니다.';
-                    resultDisplayDiv.style.color = 'red';
+                    if (answerResultMessageDiv && resultDisplayContainer) {
+                        answerResultMessageDiv.textContent = '답변 확인 중 오류가 발생했습니다.';
+                        answerResultMessageDiv.style.color = 'red';
+                        correctAnswerDisplayDiv.textContent = '';
+                        resultDisplayContainer.style.display = 'block';
+
+                    }
                 });
 
         } else if (quizState === 'SHOWING_RESULT') {
-            // --- 다음 문제 로딩 로직 ---
             fetch(`/article/quiz/next?quizId=${currentQuizId}&currentItemIndex=${currentItemIndex}`)
-                .then(response => { // fetch의 첫 번째 then은 Response 객체를 받음
+                .then(response => {
                     if (!response.ok) {
-                        if (response.status === 404 || response.status === 204) return null; // 다음 문제 없음
+                        if (response.status === 404 || response.status === 204) return null;
                         return response.text().then(text => { throw new Error('Next question fetch error: ' + text); });
                     }
                     const contentType = response.headers.get("content-type");
                     if (contentType && contentType.indexOf("application/json") !== -1) {
-                        return response.json().catch(() => null); // JSON 파싱, 실패 시 null
+                        return response.json().catch(() => null);
                     }
-                    return null; // JSON이 아니면 다음 문제 없다고 간주
+                    return null;
                 })
-                .then(nextQuestionData => { // 여기가 실제 다음 문제 데이터를 다루는 곳
+                .then(nextQuestionData => {
                     if (nextQuestionData && nextQuestionData.question) {
-                        const imageEl = document.getElementById('currentQuizImage'); // HTML에 id="currentQuizImage" 필요
-                        if (imageEl) {
-                            imageEl.src = nextQuestionData.question;
-                        } else {
-                            console.error('Element with id "currentQuizImage" not found.');
+                        if (quizImageEl) {
+                            quizImageEl.src = nextQuestionData.question;
                         }
-
-                        currentItemIndex = nextQuestionData.itemIndex; // currentItemIndex 업데이트!
-                        if (quizContainer) { // quizContainer가 있다면 data 속성도 업데이트
+                        currentItemIndex = nextQuestionData.itemIndex;
+                        if (quizContainer) {
                             quizContainer.dataset.itemIndex = currentItemIndex;
                         }
+                        quizInput.value = '';
 
+                        arrangeElements(false);
 
-                        if (quizInput) {
-                            quizInput.value = ''; // 입력창 비우기
-                            quizInput.style.display = 'inline-block'; // 입력창 다시 보이기
-                        }
-                        resultDisplayDiv.textContent = ''; // 이전 결과 메시지 지우기
-                        quizState = 'ANSWERING'; // 다시 답변 받는 상태로
+                        quizState = 'ANSWERING';
                     } else {
-                        // 다음 문제가 없으면 퀴즈 종료
-                        window.location.href=`/article/quizResult/${currentQuizId}`
-                        // resultDisplayDiv.style.color = 'blue';
-                        // if (quizInput) quizInput.style.display = 'none';
-                        // submitAnswerLink.style.display = 'none'; // 버튼도 숨김
-                        // quizState = 'ENDED';
+                        window.location.href = `/article/quizResult/${currentQuizId}`;
                     }
                 })
                 .catch(error => {
                     console.error('Error fetching next question:', error);
-                    resultDisplayDiv.textContent = '다음 문제 로딩 중 오류가 발생했습니다.';
-                    resultDisplayDiv.style.color = 'red';
+                    if (answerResultMessageDiv && resultDisplayContainer) {
+                        answerResultMessageDiv.textContent = '다음 문제 로딩 중 오류가 발생했습니다.';
+                        answerResultMessageDiv.style.color = 'red';
+                        correctAnswerDisplayDiv.textContent = '';
+                        resultDisplayContainer.style.display = 'block';
+
+                    }
                 });
         }
     });
