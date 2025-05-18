@@ -4,27 +4,23 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kars.timpeul.mappers.ArticleListMapper">
     <insert id="insertList"
-            useGeneratedKeys="true"
-            keyColumn="index"
-            keyProperty="index">
+    useGeneratedKeys="true"
+    keyColumn="index"
+    keyProperty="index">
         INSERT INTO `5.19_test`.`q_list` (title_text, info_text, made_token, is_admin_only, created_at, modified_at, is_deleted)
         VALUES (#{lists.title}, #{lists.info}, #{lists.token}, #{lists.isAdmin}, #{lists.createdAt}, #{lists.modifiedAt}, #{lists.isDeleted})
-    </insert>
-    <insert id="insertQuestion">
-        INSERT INTO `5.19_test`.`questions` (list_index, question, answers)
-        VALUES (#{questions.listIndex}, #{questions.question}, #{questions.answer})
     </insert>
 
     <!-- 추가  -->
     <select id="selectListByIndex" resultType="com.kars.timpeul.entities.ArticleListEntity">
         SELECT `index`         AS `index`,
-        `title_text`    AS `title`,
-        `info_text`     AS `info`,
-        `made_token`    AS `token`,
-        `is_admin_only` AS `isAdmin`,
-        `created_at`    AS `createdAt`,
-        `modified_at`   AS `modifiedAt`,
-        `is_deleted`    AS `isDelete`
+               `title_text`    AS `title`,
+               `info_text`     AS `info`,
+               `made_token`    AS `token`,
+               `is_admin_only` AS `isAdmin`,
+               `created_at`    AS `createdAt`,
+               `modified_at`   AS `modifiedAt`,
+               `is_deleted`    AS `isDelete`
         FROM `5.19_test`.`q_list`
         WHERE `index` = #{index}
     </select>
@@ -32,17 +28,22 @@
     <!-- 모든 조회  O -->
     <select id="selectAll" resultType="com.kars.timpeul.entities.ArticleListEntity">
         SELECT `index`         AS `index`,
-        `title_text`    AS `title`,
-        `info_text`     AS `info`,
-        `made_token`    AS `token`,
-        `is_admin_only` AS `isAdmin`,
-        `created_at`    AS `createdAt`,
-        `modified_at`   AS `modifiedAt`,
-        `is_deleted`    AS `isDelete`
+               `title_text`    AS `title`,
+               `info_text`     AS `info`,
+               `made_token`    AS `token`,
+               `is_admin_only` AS `isAdmin`,
+               `created_at`    AS `createdAt`,
+               `modified_at`   AS `modifiedAt`,
+               `is_deleted`    AS `isDelete`
         FROM `5.19_test`.`q_list`
         ORDER BY `index` DESC
     </select>
 
-
+    <!-- 내가 만든 조회 -->
+    <select id="selectListsByToken" resultType="com.kars.timpeul.entities.ArticleListEntity">
+        SELECT `index`, `title_text` AS title, `info_text` AS info
+        FROM `5.19_test`.`q_list`
+        WHERE `made_token` = #{token} AND `is_deleted` = 0
+    </select>
 
 </mapper>

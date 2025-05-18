@@ -48,4 +48,3 @@ const deleteList = (index) => {
 }
 
 
-//수정 + 삭제

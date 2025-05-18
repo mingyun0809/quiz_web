@@ -5,6 +5,7 @@ import com.kars.timpeul.entities.ArticleQuestionEntity;
 import com.kars.timpeul.entities.UserEntity;
 import com.kars.timpeul.mappers.ArticleListMapper;
 import com.kars.timpeul.mappers.ArticleQuestionMapper;
+import com.kars.timpeul.mappers.UserMapper;
 import com.kars.timpeul.results.ArticleResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,13 @@ import java.util.List;
 public class ArticleService {
     private final ArticleListMapper listMapper;
     private final ArticleQuestionMapper questionMapper;
+    private final UserMapper userMapper;
 
     @Autowired
-    public ArticleService(ArticleListMapper listMapper, ArticleQuestionMapper questionMapper) {
+    public ArticleService(ArticleListMapper listMapper, ArticleQuestionMapper questionMapper,  UserMapper userMapper) {
         this.listMapper = listMapper;
         this.questionMapper = questionMapper;
+        this.userMapper = userMapper;
     }
 
 
@@ -34,8 +37,7 @@ public class ArticleService {
         UserEntity user = new UserEntity();
         list.setTitle(title);
         list.setInfo(info);
-        // list.setToken(user.getIdToken()); // 유저토큰 받아서 하기
-        list.setToken("12345"); // 임시 토큰
+        list.setToken(user.getIdToken()); // 유저토큰 받아서 하기
         list.setAdmin(false);
         list.setDeleted(false);
         list.setCreatedAt(LocalDateTime.now());
@@ -66,6 +68,9 @@ public class ArticleService {
     }
 
     // 내가 만든 퀴즈 조회
+    public ArticleListEntity[] getListsByToken(String token) {
+        return listMapper.selectListsByToken(token);
+    }
 
 
 }

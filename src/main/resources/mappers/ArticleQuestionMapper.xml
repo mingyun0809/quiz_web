@@ -5,8 +5,8 @@
 <mapper namespace="com.kars.timpeul.mappers.ArticleQuestionMapper">
 
     <insert id="insertQuestion">
-        INSERT INTO `5.19_test`.`questions` (list_index, question, answers)
-        VALUES (#{questions.listIndex}, #{questions.question}, #{questions.answer})
+        INSERT INTO `5.19_test`.`questions` (list_index, item_index, question, answers)
+        VALUES (#{questions.listIndex}, #{questions.itemIndex}, #{questions.question}, #{questions.answer})
     </insert>
     <select id="selectQuestionByIndex" resultType="com.kars.timpeul.entities.ArticleQuestionEntity">
         SELECT `list_index` AS `listIndex`,
