@@ -10,10 +10,6 @@
         INSERT INTO `5.19_test`.`q_list` (title_text, info_text, made_token, is_admin_only, created_at, modified_at, is_deleted)
         VALUES (#{lists.title}, #{lists.info}, #{lists.token}, #{lists.isAdmin}, #{lists.createdAt}, #{lists.modifiedAt}, #{lists.isDeleted})
     </insert>
-    <insert id="insertQuestion">
-        INSERT INTO `5.19_test`.`questions` (list_index, item_index, question, answers)
-        VALUES (#{questions.listIndex}, #{questions.itemIndex}, #{questions.question}, #{questions.answer})
-    </insert>
 
     <!-- 추가  -->
     <select id="selectListByIndex" resultType="com.kars.timpeul.entities.ArticleListEntity">
@@ -43,6 +39,11 @@
         ORDER BY `index` DESC
     </select>
 
-
+    <!-- 내가 만든 조회 -->
+    <select id="selectListsByToken" resultType="com.kars.timpeul.entities.ArticleListEntity">
+        SELECT `index`, `title_text` AS title, `info_text` AS info
+        FROM `5.19_test`.`q_list`
+        WHERE `made_token` = #{token} AND `is_deleted` = 0
+    </select>
 
 </mapper>

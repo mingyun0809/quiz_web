@@ -5,6 +5,7 @@ import com.kars.timpeul.entities.UserEntity;
 import com.kars.timpeul.results.ArticleResult;
 import com.kars.timpeul.services.ArticleService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -70,6 +71,15 @@ public class ArticleController {
     }
 
     // 내가 만든 퀴즈 조회
+   @RequestMapping(value = "/madeList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+   @ResponseBody
+   public ArticleListEntity[] getMyLists(HttpSession session) {
+       String idToken = (String) session.getAttribute("idToken");
+       if (idToken == null) {
+           return new ArticleListEntity[0]; // 로그인 안 된 경우 빈 배열
+       }
+       return articleService.getListsByToken(idToken);
+   }
 
 
 }

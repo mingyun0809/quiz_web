@@ -5,6 +5,8 @@ import com.kars.timpeul.entities.ArticleQuestionEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface ArticleListMapper {
     int insertList(@Param("lists") ArticleListEntity lists);
@@ -19,4 +21,5 @@ public interface ArticleListMapper {
     ArticleListEntity[] selectAll();
 
     // 내가 만든 퀴즈 조회
+    ArticleListEntity[] selectListsByToken(String token);
 }
