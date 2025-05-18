@@ -28,16 +28,15 @@ public class ArticleService {
 
 
     //작성
-    public ArticleResult write(String title, String info, List<String> questions, List<String> answers) {
-        if (title == null || info == null || questions == null || answers == null || questions.size() != answers.size()) {
+    public ArticleResult write(String idToken, String title, String info, List<String> questions, List<String> answers) {
+        if (idToken == null || title == null || info == null || questions == null || answers == null || questions.size() != answers.size()) {
             return ArticleResult.FAILURE;
         }
 
         ArticleListEntity list = new ArticleListEntity();
-        UserEntity user = new UserEntity();
         list.setTitle(title);
         list.setInfo(info);
-        list.setToken(user.getIdToken()); // 유저토큰 받아서 하기
+        list.setToken(idToken);  // 토큰
         list.setAdmin(false);
         list.setDeleted(false);
         list.setCreatedAt(LocalDateTime.now());
