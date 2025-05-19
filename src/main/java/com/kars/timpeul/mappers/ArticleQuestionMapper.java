@@ -11,6 +11,11 @@ import java.util.List;
 public interface ArticleQuestionMapper {
     int insertQuestion(@Param("questions") ArticleQuestionEntity questions);
 
-    // 작성 시 문제들 저장
-    ArticleQuestionEntity selectQuestionByIndex(@Param(value = "index") int index);
+    ArticleQuestionEntity selectQuestionsByListIndex(@Param(value = "listIndex") int listIndex,
+                                                     @Param(value = "itemIndex")  int itemIndex);
+
+    int updateQuestion(ArticleQuestionEntity question);
+
+    int deleteQuestionByListIndexAndItemIndex(@Param(value = "listIndex") int listIndex,
+                                              @Param(value = "itemIndex") int itemIndex);
 }
