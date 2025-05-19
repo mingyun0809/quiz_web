@@ -12,7 +12,26 @@
         VALUES (#{list.title}, #{list.info}, #{list.token}, #{list.isAdmin}, #{list.createdAt}, #{list.modifiedAt}, #{list.isDeleted})
     </insert>
 
-    <!-- 추가  -->
+    <!-- 수정 -->
+    <update id="updateList">
+        UPDATE `5.19_test`.`q_list`
+        SET `is_deleted`  = NOW(),
+            `modified_at` = default
+        WHERE `index` = #{index}
+        LIMIT 1
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="deleteListByIndex">
+        DELETE FROM `5.19_test`.`q_list`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </delete>
+
+
+
+
+    <!-- 작성  -->
     <select id="selectListByIndex" resultType="com.kars.timpeul.entities.ArticleListEntity">
         SELECT `index`         AS `index`,
                `title_text`    AS `title`,

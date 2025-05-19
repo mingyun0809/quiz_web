@@ -4,7 +4,6 @@ import com.kars.timpeul.entities.ArticleListEntity;
 import com.kars.timpeul.entities.UserEntity;
 import com.kars.timpeul.results.ArticleResult;
 import com.kars.timpeul.services.ArticleService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +45,45 @@ public class ArticleController {
     }
 
 
+    // 수정하기
+    @PatchMapping(value = "/modify", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchModify(
+            @RequestParam("Title") String title,
+            @RequestParam("info") String info,
+            @RequestParam(value = "question") List<String> questions,
+            @RequestParam(value = "answer") List<String> answers,
+            @RequestParam(value = "listIndex") int listIndex,
+            @RequestParam(value = "itemIndex") int itemIndex,
+            HttpSession session) {
+        String idToken = (String) session.getAttribute("idToken");
+
+        ArticleResult result = articleService.modify(idToken, listIndex, itemIndex, title, info, questions, answers);
+        JSONObject response = new JSONObject();
+        response.put("result", result.toString().toLowerCase());
+
+        return response.toString();
+    }
+
+    // 삭제
+    @DeleteMapping(value = "/modify", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteList(HttpSession session,
+                             @RequestParam(value = "listIndex") int listIndex,
+                             @RequestParam(value = "itemIndex") int itemIndex) {
+        String idToken = (String) session.getAttribute("idToken");
+        if (idToken == null) {
+            JSONObject response = new JSONObject();
+            response.put("result", "failure");
+            return response.toString();
+        }
+        ArticleResult result = this.articleService.deleteByIndex(idToken, listIndex, itemIndex);
+        JSONObject response = new JSONObject();
+        response.put("result", result.toString().toLowerCase());
+        return response.toString();
+    }
+
+
     // 작성
     @PostMapping(value = "/write", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -72,7 +110,6 @@ public class ArticleController {
         return response.toString();
     }
 
-
     // 모든 퀴즈 조회 O
     @RequestMapping(value = "/playList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -81,15 +118,15 @@ public class ArticleController {
     }
 
     // 내가 만든 퀴즈 조회
-   @RequestMapping(value = "/madeList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-   @ResponseBody
-   public ArticleListEntity[] getMyLists(HttpSession session) {
-       String idToken = (String) session.getAttribute("idToken");
-       if (idToken == null) {
-           return new ArticleListEntity[0]; // 로그인 안 된 경우 빈 배열
-       }
-       return articleService.getListsByToken(idToken);
-   }
+    @RequestMapping(value = "/madeList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ArticleListEntity[] getMyLists(HttpSession session) {
+        String idToken = (String) session.getAttribute("idToken");
+        if (idToken == null) {
+            return new ArticleListEntity[0]; // 로그인 안 된 경우 빈 배열
+        }
+        return articleService.getListsByToken(idToken);
+    }
 
 
 }

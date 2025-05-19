@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/assets/styles/common.css">
     <link rel="stylesheet" href="/assets/article/styles/modify.css">
 
-    <script defer src="/assets/article/scripts/modify.js"></script>
     <title>퀴즈 수정</title>
 </head><!--  http://localhost:8080/article/modify -->
 <body>
@@ -19,18 +18,18 @@
     <h1 class="title">퀴즈 수정</h1>
     <span class="line"></span>
     <span class="status"></span>
-    <button class="delete" type="submit" id="deleteButton">삭제하기</button>
+    <button class="delete" type="button" name="delete">삭제하기</button>
 </header>
 
 <table class="table">
-    <tbody>
+    <tbody id="questionTable">
     <tr>
         <th scope="row">
             <label class="caption">퀴즈 제목</label>
         </th>
         <td>
             <div class="row">
-                <input autofocus required class="info" id="" maxlength="100" minlength="1" name="title"
+                <input autofocus required class="info" id="modifyTitle" maxlength="100" minlength="1" name="Title"
                        type="text" placeholder="본래 제목">
             </div>
         </td>
@@ -42,11 +41,12 @@
         </th>
         <td>
             <div class="row">
-                    <textarea required class="info" id="writeInfo" maxlength="500" minlength="1" name="info"
+                    <textarea required class="info" id="modifyInfo" maxlength="500" minlength="1" name="info"
                               placeholder="본래 설명"></textarea>
             </div>
         </td>
     </tr>
+    <!--
     <tr class="QnA">
         <th scope="row" class="col">
             <label class="caption">질문</label>
@@ -77,17 +77,21 @@
             </div>
         </td>
     </tr>
+    -->
     </tbody>
 </table>
 
 <div class="button-container">
     <a class="button" href="/article/made">취소</a>
     <!-- th:href="@{/border/list (id = ${border.getId()})}" // 주소식: @{주소 (이름 = 값, 이름2 = 값2)} -->
-    <button class="button" name="make" type="submit"> 수정하기</button>
+    <button class="button" name="modify" type="submit"> 수정하기</button>
 </div>
 
 
 </form>
 
+<script defer src="/assets/article/scripts/modify.js"></script>
 </body>
+
+
 </html>
