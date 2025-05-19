@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = "listIndex")
+@EqualsAndHashCode(of = {"listIndex", "itemIndex"})
 public class ArticleQuestionEntity {
     private int listIndex;
     private int itemIndex;

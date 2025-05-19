@@ -53,9 +53,19 @@ public class ArticleController {
             @RequestParam("Title") String title,
             @RequestParam("info") String info,
             @RequestParam(value = "question") List<String> questions,
-            @RequestParam(value = "answer") List<String> answers) {
+            @RequestParam(value = "answer") List<String> answers,
+            HttpSession session) {
 
-        ArticleResult result = articleService.write(title, info, questions, answers);
+        String idToken = (String) session.getAttribute("idToken");
+        if (idToken == null) {
+            // 로그인 안 된 상태 처리 (예: 실패 리턴)
+            JSONObject response = new JSONObject();
+            response.put("result", "failure");
+            response.put("message", "로그인이 필요합니다.");
+            return response.toString();
+        }
+
+        ArticleResult result = articleService.write(idToken, title, info, questions, answers);
         JSONObject response = new JSONObject();
         response.put("result", result.toString().toLowerCase());
 
