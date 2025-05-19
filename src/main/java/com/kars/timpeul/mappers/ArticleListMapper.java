@@ -17,10 +17,9 @@ public interface ArticleListMapper {
 
 
     // 수정
-    int updateList(@Param(value = "index") int index);
 
     // 삭제
-    int deleteListByIndex(@Param(value = "index") int index);
+    int update(@Param(value = "index") int index);
 
 
 

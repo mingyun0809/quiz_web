@@ -13,21 +13,16 @@
     </insert>
 
     <!-- 수정 -->
-    <update id="updateList">
-        UPDATE `5.19_test`.`q_list`
-        SET `is_deleted`  = NOW(),
-            `modified_at` = default
-        WHERE `index` = #{index}
-        LIMIT 1
-    </update>
+
+
 
     <!-- 삭제 -->
-    <delete id="deleteListByIndex">
-        DELETE FROM `5.19_test`.`q_list`
+    <update id="update">
+        UPDATE `5.19_test`.`q_list`
+        SET `is_deleted` = TRUE,
+            `modified_at` = NOW()
         WHERE `index` = #{index}
-        LIMIT 1
-    </delete>
-
+    </update>
 
 
 

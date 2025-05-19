@@ -2,6 +2,7 @@ package com.kars.timpeul.services;
 
 import com.kars.timpeul.entities.ArticleListEntity;
 import com.kars.timpeul.entities.ArticleQuestionEntity;
+import com.kars.timpeul.entities.UserEntity;
 import com.kars.timpeul.mappers.ArticleListMapper;
 import com.kars.timpeul.mappers.ArticleQuestionMapper;
 import com.kars.timpeul.results.ArticleResult;
@@ -37,7 +38,7 @@ public class ArticleService {
         list.setInfo(info);
         list.setModifiedAt(LocalDateTime.now());
 
-        for (int i = 1; i < questions.size(); i++) {
+        for (int i = 0; i < questions.size(); i++) {
             ArticleQuestionEntity q = new ArticleQuestionEntity();
             q.setListIndex(listIndex);
             q.setItemIndex(i);
@@ -50,17 +51,18 @@ public class ArticleService {
     }
 
     // 삭제
-    public ArticleResult deleteByIndex(String idToken, int listIndex, int itemIndex) {
-        if (idToken == null || listIndex < 1 || itemIndex < 0) {
+    public ArticleResult deleteByIndex(UserEntity user, int index) {
+        if (index < 1 || user == null || user.isDeleted() || !user.isAdmin()) {
             return ArticleResult.FAILURE;
         }
-        ArticleListEntity list = listMapper.selectListByIndex(listIndex);
+
+        ArticleListEntity list = listMapper.selectListByIndex(index);
         if (list == null || list.isDeleted()) {
             return ArticleResult.FAILURE;
         }
 
-        int deleted = questionMapper.deleteQuestionByListIndexAndItemIndex(listIndex, itemIndex);
-        return deleted > 0 ? ArticleResult.SUCCESS : ArticleResult.FAILURE;
+        list.setDeleted(true);
+        return this.listMapper.update(index) > 0 ? ArticleResult.SUCCESS : ArticleResult.FAILURE;
     }
 
 
