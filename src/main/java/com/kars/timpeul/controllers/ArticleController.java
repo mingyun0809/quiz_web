@@ -68,16 +68,20 @@ public class ArticleController {
     // 삭제
     @DeleteMapping(value = "/modify", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String deleteList(HttpSession session,
-                             @RequestParam(value = "listIndex") int listIndex,
-                             @RequestParam(value = "itemIndex") int itemIndex) {
-        String idToken = (String) session.getAttribute("idToken");
-        if (idToken == null) {
+    public String deleteModify(HttpSession session,
+                               @RequestParam(value = "index", required = false, defaultValue = "0") int index) {
+        String idTokenStr = (String) session.getAttribute("idToken");
+        if (idTokenStr == null) {
             JSONObject response = new JSONObject();
             response.put("result", "failure");
             return response.toString();
         }
-        ArticleResult result = this.articleService.deleteByIndex(idToken, listIndex, itemIndex);
+
+        UserEntity user = new UserEntity();
+        user.setIdToken(idTokenStr);
+        user.setAdmin(true);
+
+        ArticleResult result = this.articleService.deleteByIndex(user, index);
         JSONObject response = new JSONObject();
         response.put("result", result.toString().toLowerCase());
         return response.toString();

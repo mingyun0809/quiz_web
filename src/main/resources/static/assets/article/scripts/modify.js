@@ -22,12 +22,20 @@ document.addEventListener('DOMContentLoaded', () => {
         questionInputs.forEach(input => questions.push(input.value));
         answerInputs.forEach(input => answers.push(input.value));
 
-        const params = new URLSearchParams();
-        params.append('index', index);
-        params.append('Title', title);
-        params.append('info', info);
-        questions.forEach(q => params.append('question', q));
-        answers.forEach(a => params.append('answer', a));
+       // const params = new URLSearchParams();
+       // params.append('index', index);
+       // params.append('Title', title);
+       // params.append('info', info);
+       // questions.forEach(q => params.append('question', q));
+       // answers.forEach(a => params.append('answer', a));
+
+        const data = {
+            index: index,
+            title: title,
+            info: info,
+            questions: questions,
+            answers: answers,
+        }
 
         const xhr = new XMLHttpRequest();
         xhr.open('PATCH', '/article/modify', true);
@@ -47,19 +55,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         };
-        xhr.send(params.toString());
+        xhr.send(JSON.stringify(data));
     });
 
     // 삭제
-    $modifyForm.querySelectorAll('button[name="delete"]').forEach($button => {
-        $button.addEventListener('click', () => {
-            const listIndex = $button.dataset['listIndex'];
-            const itemIndex = $button.dataset['itemIndex'];
+    $modifyForm.addEventListener('click', function (e) {
+        const button = e.target.closest('button[name="delete"]');
+        if (button) {
+            const listIndex = button.dataset['listIndex'];
+            const itemIndex = button.dataset['itemIndex'];
 
-            if (confirm('해당 퀴즈를 삭제할까요?') === true) {
+            if (confirm('해당 퀴즈를 삭제할까요?')) {
                 deleteQuestion(listIndex, itemIndex);
             }
-        });
+        }
     });
 
     // +- 버튼
@@ -128,24 +137,32 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //삭제
-const deleteQuestion = (index) => {
+document.getElementById('deleteListButton').addEventListener('click', () => {
+    if (!confirm('이 퀴즈 전체를 삭제하시겠습니까?')) return;
+
     const xhr = new XMLHttpRequest();
+    const params = new URLSearchParams();
+    params.append('index', new URL(location.href).searchParams.get('index'));
+
+    xhr.open('DELETE', '/article/modify');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
     xhr.onreadystatechange = () => {
         if (xhr.readyState !== XMLHttpRequest.DONE) return;
 
         if (xhr.status >= 200 && xhr.status < 300) {
-            const res = JSON.parse(xhr.responseText);
-            if (res.result === 'success') {
-                alert('문제가 삭제되었습니다.');
-                location.reload();
+            const response = JSON.parse(xhr.responseText);
+            if (response.result === 'success') {
+                alert('퀴즈가 삭제되었습니다.');
+                window.location.href = '/article/playList';
             } else {
-                alert('삭제 실패: ' + res.message);
+                alert('삭제에 실패했습니다.');
             }
         } else {
-            alert('서버 오류가 발생했습니다.');
+            alert('서버 오류가 발생했습니다. (' + xhr.status + ')');
         }
     };
-    xhr.open('DELETE', `/article/question?index=${index}`, true);
-    xhr.send();
-};
+
+    xhr.send(params.toString());
+});
 
