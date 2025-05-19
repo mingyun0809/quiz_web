@@ -98,15 +98,18 @@ public class QuizController {
     public ResponseEntity<Map<String, Object>> checkAnswer(
             @RequestParam("itemIndex") int itemIndex,
             @RequestParam("userAnswer") String userAnswer,
-            @RequestParam("quizId") int quizId,
+            @RequestParam("quizId") int quizId, // quizId는 이미 받고 있음
             HttpSession session) {
 
-        boolean isCorrect = quizService.checkAnswer(itemIndex, userAnswer);
+        // quizService.checkAnswer 호출 시 quizId 전달
+        boolean isCorrect = quizService.checkAnswer(quizId, itemIndex, userAnswer);
         String message = isCorrect ? "정답!" : "오답!";
-        ArticleQuestionEntity question = quizService.getQuestionByItemIndex(itemIndex);
-        String correctAnswer = question != null ? question.getAnswer() : "";
-        Map<String, Object> response = new HashMap<>();
 
+        // quizService.getQuestionByItemIndex 호출 시 quizId 전달
+        ArticleQuestionEntity question = quizService.getQuestionByItemIndex(quizId, itemIndex);
+        String correctAnswer = question != null ? question.getAnswer() : "";
+
+        Map<String, Object> response = new HashMap<>();
         response.put("correct", isCorrect);
         response.put("message", message);
         response.put("correctAnswer", correctAnswer);
@@ -118,10 +121,9 @@ public class QuizController {
                 currentScore = 0;
             }
             currentScore++;
-            session.setAttribute(scoreAttributeName, currentScore); // 세션 기록 확인
+            session.setAttribute(scoreAttributeName, currentScore);
         }
-
-        return ResponseEntity.ok(response); // HTTP 200 OK 와 함께 JSON 응답
+        return ResponseEntity.ok(response);
     }
 
 

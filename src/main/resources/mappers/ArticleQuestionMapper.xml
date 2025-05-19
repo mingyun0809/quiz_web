@@ -5,27 +5,10 @@
 <mapper namespace="com.kars.timpeul.mappers.ArticleQuestionMapper">
     <!-- 추가 -->
     <insert id="insertQuestion">
-        INSERT INTO `5.19_test`.`questions` (`list_index`, `item_index`, `question`, `answers`)
-        VALUES (#{question.listIndex}, #{question.itemIndex}, #{question.question}, #{question.answer})
+        INSERT INTO `5.19_test`.`questions` (list_index, item_index, question, answers)
+        VALUES (#{questions.listIndex}, #{questions.itemIndex}, #{questions.question}, #{questions.answer})
     </insert>
-
-    <!-- 수정 -->
-    <update id="updateQuestion">
-        UPDATE `5.19_test`.`questions`
-        SET `question` = #{question},
-            `answers` = #{answer}
-        WHERE `list_index` = #{listIndex} AND `item_index` = #{itemIndex}
-    </update>
-    <delete id="deleteQuestionByListIndexAndItemIndex">
-        DELETE
-        FROM `5.19_test`.`questions`
-        WHERE `list_index` = #{listIndex}
-          AND `item_index` = #{itemIndex}
-        LIMIT 1
-    </delete>
-
-
-    <select id="selectQuestionsByListIndex" resultType="com.kars.timpeul.entities.ArticleQuestionEntity">
+    <select id="selectQuestionByIndex" resultType="com.kars.timpeul.entities.ArticleQuestionEntity">
         SELECT `list_index` AS `listIndex`,
                `item_index` AS `itemIndex`,
                `question`   AS `question`,
