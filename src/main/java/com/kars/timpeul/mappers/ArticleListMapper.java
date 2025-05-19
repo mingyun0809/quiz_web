@@ -1,6 +1,7 @@
 package com.kars.timpeul.mappers;
 
 import com.kars.timpeul.entities.ArticleListEntity;
+import com.kars.timpeul.entities.ArticleQuestionEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface ArticleListMapper {
-    int insertList(@Param("lists") ArticleListEntity lists);
+    int insertList(@Param(value = "list") ArticleListEntity list);
 
 
     // 작성 시 리스트에 저장
@@ -20,5 +21,5 @@ public interface ArticleListMapper {
     ArticleListEntity[] selectAll();
 
     // 내가 만든 퀴즈 조회
-    ArticleListEntity[] selectListsByToken(String token);
+    ArticleListEntity[] selectListsByToken(@Param(value = "token") String token);
 }

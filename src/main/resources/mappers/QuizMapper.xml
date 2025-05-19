@@ -50,7 +50,7 @@
         FROM
             `5.19_test`.`questions`
         WHERE
-            `item_index` = #{itemIndex}
+            `list_index` = #{quizId} AND `item_index` = #{itemIndex}
     </select>
     <select id="findNextQuestion" resultType="com.kars.timpeul.entities.ArticleQuestionEntity">
         SELECT

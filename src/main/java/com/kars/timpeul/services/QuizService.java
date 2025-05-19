@@ -27,8 +27,8 @@ public class QuizService {
     }
 
     // quizContent.html을 위한 메소드
-    public ArticleQuestionEntity getQuestionByItemIndex(int itemIndex) {
-        return quizMapper.findQuestionByItemIndex(itemIndex);
+    public ArticleQuestionEntity getQuestionByItemIndex(int quizId, int itemIndex) {
+        return quizMapper.findQuestionByItemIndex(quizId, itemIndex);
     }
 
     public List<ArticleQuestionEntity> getQuestionsByQuizId(int quizId) {
@@ -39,14 +39,13 @@ public class QuizService {
         return quizMapper.findNextQuestion(quizId, currentItemIndex);
     }
 
-    public boolean checkAnswer(int itemIndex, String userAnswer){
-        if (userAnswer==null){
+    public boolean checkAnswer(int quizId, int itemIndex, String userAnswer) { // quizId 파라미터 추가
+        if (userAnswer == null) {
             return false;
         }
-        ArticleQuestionEntity question=quizMapper.findQuestionByItemIndex(itemIndex);
-        if (question!=null&&question.getAnswer()!=null){
+        ArticleQuestionEntity question = quizMapper.findQuestionByItemIndex(quizId, itemIndex); // quizId 전달
+        if (question != null && question.getAnswer() != null) {
             return userAnswer.trim().equalsIgnoreCase(question.getAnswer().trim());
-
         }
         return false;
     }
