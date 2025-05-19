@@ -50,41 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // 이미지 드롭
-    tbody.addEventListener('drop', async (e) => {
-        e.preventDefault();
-        const dropTarget = e.target.closest('.img-box');
-        if (!dropTarget) {
-            return;
-        }
-
-        const img = dropTarget.querySelector('img');
-        const hiddenInput = dropTarget.parentElement.querySelector('input[name="question[]"]');
-        const items = e.dataTransfer.items;
-
-        for (let i = 0; i < items.length; i++) {
-            const item = items[i];
-
-            if (item.kind === 'string' && (item.type === 'text/uri-list' || item.type === 'text/plain')) {
-                item.getAsString((url) => {
-                    if (url && url.startsWith('http') && url.length <= 255) {
-                        img.src = url;
-                        hiddenInput.value = url;
-                    } else {
-                        alert("잘못된 이미지 주소이거나 주소의 길이가 255자를 초과하였습니다.");
-                    }
-                });
-                return;
-            }
-            if (item.kind === 'file') {
-                alert("파일은 지원하지 않습니다. 이미지만 드롭해 주세요.");
-                return;
-            }
-        }
-    });
-
-    tbody.addEventListener('dragover', (e) => e.preventDefault());
-
     // +- 버튼
     tbody.addEventListener('click', (e) => {
         const button = e.target.closest('button');

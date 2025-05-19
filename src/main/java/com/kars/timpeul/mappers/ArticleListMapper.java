@@ -4,15 +4,21 @@ import com.kars.timpeul.entities.ArticleListEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
 
 @Mapper
 public interface ArticleListMapper {
     int insertList(@Param(value = "list") ArticleListEntity list);
 
-
     // 작성 시 리스트에 저장
     ArticleListEntity selectListByIndex(@Param(value = "index") int index);
+
+
+
+    // 수정
+    int updateList(@Param(value = "index") int index);
+
+    // 삭제
+    int deleteListByIndex(@Param(value = "index") int index);
 
 
 
