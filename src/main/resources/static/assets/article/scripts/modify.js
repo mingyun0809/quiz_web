@@ -58,18 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
         xhr.send(JSON.stringify(data));
     });
 
-    // 삭제
-    $modifyForm.addEventListener('click', function (e) {
-        const button = e.target.closest('button[name="delete"]');
-        if (button) {
-            const listIndex = button.dataset['listIndex'];
-            const itemIndex = button.dataset['itemIndex'];
-
-            if (confirm('해당 퀴즈를 삭제할까요?')) {
-                deleteQuestion(listIndex, itemIndex);
-            }
-        }
-    });
 
     // +- 버튼
     tbody.addEventListener('click', (e) => {
@@ -138,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //삭제
 document.getElementById('deleteListButton').addEventListener('click', () => {
-    if (!confirm('이 퀴즈 전체를 삭제하시겠습니까?')) return;
+    if (!confirm('퀴즈를 삭제하시겠습니까?')) return;
 
     const xhr = new XMLHttpRequest();
     const params = new URLSearchParams();

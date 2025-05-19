@@ -47,23 +47,10 @@ public class ArticleService {
             questionMapper.insertQuestion(q);
         }
 
-        return ArticleResult.SUCCESS;
+        return this.listMapper.updateList(list) > 0 ?  ArticleResult.SUCCESS : ArticleResult.FAILURE;
     }
 
-    // 삭제
-    public ArticleResult deleteByIndex(UserEntity user, int index) {
-        if (index < 1 || user == null || user.isDeleted() || !user.isAdmin()) {
-            return ArticleResult.FAILURE;
-        }
 
-        ArticleListEntity list = listMapper.selectListByIndex(index);
-        if (list == null || list.isDeleted()) {
-            return ArticleResult.FAILURE;
-        }
-
-        list.setDeleted(true);
-        return this.listMapper.update(index) > 0 ? ArticleResult.SUCCESS : ArticleResult.FAILURE;
-    }
 
 
     //작성
@@ -96,6 +83,20 @@ public class ArticleService {
         return ArticleResult.SUCCESS;
     }
 
+    // 삭제
+    public ArticleResult deleteByIndex(UserEntity user, int index) {
+        if (index < 1 || user == null || user.isDeleted() || !user.isAdmin()) {
+            return ArticleResult.FAILURE;
+        }
+
+        ArticleListEntity list = listMapper.selectListByIndex(index);
+        if (list == null || list.isDeleted()) {
+            return ArticleResult.FAILURE;
+        }
+
+        list.setDeleted(true);
+        return this.listMapper.update(index) > 0 ? ArticleResult.SUCCESS : ArticleResult.FAILURE;
+    }
 
     // 리스트 조회 O
     public ArticleListEntity[] getAll() {
