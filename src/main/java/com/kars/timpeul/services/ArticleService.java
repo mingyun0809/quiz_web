@@ -37,7 +37,7 @@ public class ArticleService {
         list.setInfo(info);
         list.setModifiedAt(LocalDateTime.now());
 
-        for (int i = 1; i < questions.size(); i++) {
+        for (int i = 0; i < questions.size(); i++) {
             ArticleQuestionEntity q = new ArticleQuestionEntity();
             q.setListIndex(listIndex);
             q.setItemIndex(i);
@@ -82,7 +82,7 @@ public class ArticleService {
         int listResult = listMapper.insertList(list);
         if (listResult == 0) return ArticleResult.FAILURE;
 
-        for (int i = 1; i < questions.size(); i++) {
+        for (int i = 0; i < questions.size(); i++) {
             ArticleQuestionEntity question = new ArticleQuestionEntity();
             question.setListIndex(list.getIndex());
             question.setItemIndex(i);
