@@ -65,27 +65,6 @@ public class ArticleController {
         return response.toString();
     }
 
-    // 삭제
-    @DeleteMapping(value = "/modify", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String deleteModify(HttpSession session,
-                               @RequestParam(value = "index", required = false, defaultValue = "0") int index) {
-        String idTokenStr = (String) session.getAttribute("idToken");
-        if (idTokenStr == null) {
-            JSONObject response = new JSONObject();
-            response.put("result", "failure");
-            return response.toString();
-        }
-
-        UserEntity user = new UserEntity();
-        user.setIdToken(idTokenStr);
-        user.setAdmin(true);
-
-        ArticleResult result = this.articleService.deleteByIndex(user, index);
-        JSONObject response = new JSONObject();
-        response.put("result", result.toString().toLowerCase());
-        return response.toString();
-    }
 
 
     // 작성
@@ -111,6 +90,29 @@ public class ArticleController {
         JSONObject response = new JSONObject();
         response.put("result", result.toString().toLowerCase());
 
+        return response.toString();
+    }
+
+
+    // 삭제
+    @DeleteMapping(value = "/modify", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteModify(HttpSession session,
+                               @RequestParam(value = "index", required = false, defaultValue = "0") int index) {
+        String idTokenStr = (String) session.getAttribute("idToken");
+        if (idTokenStr == null) {
+            JSONObject response = new JSONObject();
+            response.put("result", "failure");
+            return response.toString();
+        }
+
+        UserEntity user = new UserEntity();
+        user.setIdToken(idTokenStr);
+        user.setAdmin(true);
+
+        ArticleResult result = this.articleService.deleteByIndex(user, index);
+        JSONObject response = new JSONObject();
+        response.put("result", result.toString().toLowerCase());
         return response.toString();
     }
 
